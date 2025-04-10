@@ -1,5 +1,5 @@
 import AppLayout from '@/layout/AppLayout.vue'
-import TestPage from '@/views/test-page.vue'
+import AuthPage from '@/views/auth-page.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -10,10 +10,10 @@ const router = createRouter({
             component: AppLayout,
             children: [
                 {
-                    path: '/',
-                    name: "TestView",
-                    component: TestPage,
-                }
+                    path: '/auth',
+                    name: 'AuthPage',
+                    component: AuthPage,
+                },
             ],
         },
     ],
