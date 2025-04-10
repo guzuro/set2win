@@ -8,13 +8,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
+    copy: typeof import('./src/components/controls/TextInput copy.vue')['default']
+    Form: typeof import('@primevue/forms/form')['default']
+    FormBuilder: typeof import('./src/components/FormBuilder/FormBuilder.vue')['default']
+    InputText: typeof import('primevue/inputtext')['default']
     Menu: typeof import('primevue/menu')['default']
+    Message: typeof import('primevue/message')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TextInput: typeof import('./src/components/controls/TextInput.vue')['default']
   }
   export interface ComponentCustomProperties {
     Ripple: typeof import('primevue/ripple')['default']
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }
