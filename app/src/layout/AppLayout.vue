@@ -15,4 +15,18 @@ import { RouterView } from 'vue-router'
 import AppSidebar from './AppSidebar.vue'
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.app-layout {
+    @apply flex gap-10 w-full;
+
+    padding: 5rem 4rem;
+
+    &-container {
+        @apply w-full;
+    }
+
+    &-main {
+        @apply mx-auto h-full;
+    }
+}
+</style>
