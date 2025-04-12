@@ -1,28 +1,36 @@
 <template>
-    <div class="auth-page">
-        <Card class="auth-page-card">
+    <div class="auth-sign-in">
+        <Card>
             <template #title>Sign in</template>
 
             <template #content>
                 <FormBuilder
-                    :form="formData.model"
-                    :schema="formData.schema"
+                    :form="signInData"
                     :resolver="resolver"
                     @form-submit="onFormSubmit"
                 />
+
+                <div class="mt-5 text-center">
+                    Dont have an account?
+                    <RouterLink
+                        :to="{ name: 'SignUp' }"
+                        class="text-blue-400"
+                    >
+                        Sign Up
+                    </RouterLink>
+                </div>
             </template>
         </Card>
     </div>
 </template>
 
 <script setup lang="ts">
-import FormBuilder from '@/components/FormBuilder/FormBuilder.vue'
 import type { FormBuilderData } from '@/components/FormBuilder/types'
 import type { SignInData } from '@/types/auth.types'
+import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
+import FormBuilder from '@/components/FormBuilder/FormBuilder.vue'
 
-import { type FormResolverOptions, type FormSubmitEvent } from '@primevue/forms'
-
-const formData: FormBuilderData<SignInData> = {
+const signInData: FormBuilderData<SignInData> = {
     model: {
         login: '',
         password: '',
@@ -39,6 +47,9 @@ const formData: FormBuilderData<SignInData> = {
             model: 'password',
         },
     ],
+    submit: {
+        label: 'Sign in',
+    },
 }
 
 const resolver = ({ values }: FormResolverOptions) => {
@@ -69,14 +80,4 @@ const onFormSubmit = (payload: FormSubmitEvent) => {
 }
 </script>
 
-<style scoped lang="scss">
-.auth-page {
-    @apply w-full flex justify-center items-center h-full;
-
-    &-card {
-        @apply w-full;
-
-        max-width: 50%;
-    }
-}
-</style>
+<style></style>
