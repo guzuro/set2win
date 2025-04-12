@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { signUpReq } from '@/api/auth.api'
 import type { FormBuilderData } from '@/components/FormBuilder/types'
 import type { SignUpData } from '@/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
@@ -82,9 +83,9 @@ const resolver = ({ values }: FormResolverOptions) => {
     }
 }
 
-const onFormSubmit = (payload: FormSubmitEvent) => {
+const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
     if (payload.valid) {
-        console.log('ok')
+        signUpReq(payload.values)
     }
 }
 </script>
