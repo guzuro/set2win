@@ -12,11 +12,16 @@
   },
   "dependencies": {
     "@elysiajs/node": "^1.2.6",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.41.0",
     "elysia": "^1.2.25",
+    "pg": "^8.14.1",
     "prettier": "3.5.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/pg": "^8.11.12",
+    "drizzle-kit": "^0.30.6",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   }
