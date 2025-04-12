@@ -19,6 +19,7 @@ declare module 'vue' {
     Message: typeof import('primevue/message')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SignInForm: typeof import('./src/components/auth/SignInForm.vue')['default']
     TextInput: typeof import('./src/components/controls/TextInput.vue')['default']
   }
   export interface ComponentCustomProperties {
