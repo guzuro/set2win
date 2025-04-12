@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@drizzle-team/brocli/-/brocli-0.10.2.tgz#9757c006a43daaa6f45512e6cf5fabed36fb9da7"
   integrity sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==
 
+"@elysiajs/cors@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@elysiajs/cors/-/cors-1.2.0.tgz#5ba01d3629d942b91b662b75a10207e1b70b619d"
+  integrity sha512-qsJwDAg6WfdQRMfj6uSMcDPSpXvm/zQFeAX1uuJXhIgazH8itSfcDxcH9pMuXVRX1yQNi2pPwNQLJmAcw5mzvw==
+
 "@elysiajs/node@^1.2.6":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@elysiajs/node/-/node-1.2.6.tgz#4fe322d1de7c0c7b018e3353f0318f214e0422ff"
