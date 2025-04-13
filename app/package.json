@@ -19,6 +19,7 @@
     "@primevue/forms": "^4.3.3",
     "autoprefixer": "^10.4.21",
     "axios": "^1.8.4",
+    "pinia": "^3.0.2",
     "postcss": "^8.5.3",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.3",
