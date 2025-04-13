@@ -15,3 +15,4 @@ export const signUpchema = t.Object({
 
 export type SignUpDto = typeof signUpchema.static
 
+export type CreateUserDto = Omit<SignUpDto, 'passwordConfirm'>
