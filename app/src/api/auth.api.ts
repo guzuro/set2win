@@ -1,6 +1,10 @@
-import type { SignUpData } from '@/types/auth.types'
-import axios from 'axios'
+import type { SignInData, SignUpData } from '@/types/auth.types'
+import { api } from './axios'
 
 export function signUpReq(params: SignUpData) {
-    axios.post('http://localhost:3000/api/auth/signup', params)
+    return api.post('auth/signup', params)
+}
+
+export function signInReq(params: SignInData) {
+    return api.post('auth/signin', params)
 }

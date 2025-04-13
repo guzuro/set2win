@@ -6,7 +6,7 @@
             :initialValues="form.model"
             :resolver="resolver"
             class="flex flex-col gap-4 w-full"
-            @submit="submit"
+            @submit="submitRaw"
         >
             <div v-for="field in form.schema">
                 <TextInput
@@ -28,22 +28,26 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Record<string, any>">
 import { Form, type FormSubmitEvent, type FormProps } from '@primevue/forms'
 
 import TextInput from '../controls/TextInput.vue'
 import type { FormBuilderData } from './types'
 
 defineProps<{
-    form: FormBuilderData
+    form: FormBuilderData<T>
     resolver: FormProps['resolver']
 }>()
 
 const emits = defineEmits<{
-    'form-submit': [FormSubmitEvent]
+    'form-submit': [FormSubmitEvent<T>]
 }>()
 
-function submit(payload: FormSubmitEvent) {
+function submitRaw(e: FormSubmitEvent<Record<string, any>>) {
+    submit(e as FormSubmitEvent<T>)
+}
+
+function submit(payload: FormSubmitEvent<T>) {
     emits('form-submit', payload)
 }
 </script>

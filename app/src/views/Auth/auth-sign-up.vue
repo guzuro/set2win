@@ -31,11 +31,7 @@ import type { SignUpData } from '@/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 
 const signUpData: FormBuilderData<SignUpData> = {
-    model: {
-        login: '',
-        password: '',
-        passwordConfirm: '',
-    },
+    model: defaultModel(),
     schema: [
         {
             type: 'Text',
@@ -56,6 +52,14 @@ const signUpData: FormBuilderData<SignUpData> = {
     submit: {
         label: 'Sign up',
     },
+}
+
+function defaultModel(): SignUpData {
+    return {
+        login: '',
+        password: '',
+        passwordConfirm: '',
+    }
 }
 
 const resolver = ({ values }: FormResolverOptions) => {
@@ -86,6 +90,9 @@ const resolver = ({ values }: FormResolverOptions) => {
 const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
     if (payload.valid) {
         signUpReq(payload.values)
+            .then(res => {
+                payload.reset()
+            })
     }
 }
 </script>
