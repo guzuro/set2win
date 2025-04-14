@@ -1,5 +1,5 @@
 <template>
-    <Card class="app-sidebar">
+    <Card class="app-layout-sidebar">
         <template #content> sidebar </template>
     </Card>
 </template>
@@ -7,10 +7,9 @@
 <script setup lang="ts"></script>
 
 <style scoped lang="scss">
-.app-sidebar {
-    @apply w-full;
+.app-layout-sidebar {
+    @apply w-full max-w-96;
 
-    max-width: 25rem;
     height: calc(100vh - 10rem);
 }
 </style>
