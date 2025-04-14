@@ -10,13 +10,11 @@ import { RouterView } from 'vue-router'
 
 <style scoped lang="scss">
 .auth-page {
-    @apply w-full flex justify-center items-center h-full;
+    @apply w-full flex justify-center items-center;
 
     .auth-sign-in,
     .auth-sign-up {
-        @apply w-full;
-
-        max-width: 50%;
+        @apply w-full md:max-w-md;
     }
 }
 </style>
