@@ -89,10 +89,9 @@ const resolver = ({ values }: FormResolverOptions) => {
 
 const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
     if (payload.valid) {
-        signUpReq(payload.values)
-            .then(res => {
-                payload.reset()
-            })
+        signUpReq(payload.values).then((res) => {
+            payload.reset()
+        })
     }
 }
 </script>

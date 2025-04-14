@@ -83,7 +83,6 @@ const onFormSubmit = (payload: FormSubmitEvent<SignInData>) => {
             userStore.$patch({
                 user: res,
             })
-
             payload.reset()
         })
     }
