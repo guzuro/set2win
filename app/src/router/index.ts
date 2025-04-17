@@ -1,35 +1,32 @@
-import AppLayout from '@/layout/AppLayout.vue'
-import AuthPage from '@/views/Auth/auth-page.vue'
-import AuthSignIn from '@/views/Auth/auth-sign-in.vue'
-import AuthSignUp from '@/views/Auth/auth-sign-up.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import routes from './routes'
+import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: '',
-            component: AppLayout,
-            children: [
-                {
-                    path: '/auth',
-                    component: AuthPage,
-                    children: [
-                        {
-                            path: 'sign-in',
-                            name: 'SignIn',
-                            component: AuthSignIn,
-                        },
-                        {
-                            path: 'sign-up',
-                            name: 'SignUp',
-                            component: AuthSignUp,
-                        },
-                    ],
-                },
-            ],
-        },
-    ],
+    routes,
+})
+
+router.beforeEach(async (to, from, next) => {
+    const userStore = useUserStore()
+
+    const isAuth = userStore.isAuthenticated
+
+    if (!isAuth) {
+        if (to.meta?.public) {
+            next()
+        } else {
+            try {
+                await userStore.getUser()
+
+                return next()
+            } catch (error) {
+                return next({ name: 'SignIn' })
+            }
+        }
+    }
+
+    next()
 })
 
 export default router

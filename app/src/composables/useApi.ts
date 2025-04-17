@@ -1,4 +1,3 @@
-import type { AxiosRequestConfig } from 'axios'
 import { ref } from 'vue'
 
 export function useApi<T = any>() {

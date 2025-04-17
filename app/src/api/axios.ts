@@ -10,7 +10,7 @@ class Api {
     private instance: AxiosInstance
 
     constructor(baseUrl: string) {
-        this.instance = axios.create({ baseURL: baseUrl })
+        this.instance = axios.create({ baseURL: baseUrl, withCredentials: true })
 
         this.instance.interceptors.response.use(
             (response: AxiosResponse) => response.data,
