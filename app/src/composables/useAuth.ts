@@ -7,18 +7,19 @@ import { useRouter } from 'vue-router'
 export default function useAuth() {
     const userStore = useUserStore()
     const { data, error, isLoading, resolve } = useApi()
-    const {push} = useRouter()
+    const { push } = useRouter()
 
     async function signIn(payload: SignInData) {
         try {
             await resolve(() => AuthApi.signIn(payload))
 
-            userStore.$patch({
-                user: data.value,
-            })
+            if (data.value) {
+                userStore.$patch({
+                    user: data.value,
+                })
 
-            push({name: 'Dashboard'})
-            
+                push({ name: 'Dashboard' })
+            }
         } catch (error) {
             console.error(error)
         }
@@ -26,7 +27,11 @@ export default function useAuth() {
 
     async function signUp(payload: SignUpData) {
         try {
-            resolve(() => AuthApi.signUp(payload))
+            await resolve(() => AuthApi.signUp(payload))
+
+            if (data.value) {
+                push({ name: 'SignIn' })
+            }
         } catch (error) {
             console.error(error)
         }
