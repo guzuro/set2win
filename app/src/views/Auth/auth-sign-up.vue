@@ -25,10 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import { signUpReq } from '@/api/auth.api'
 import type { FormBuilderData } from '@/components/FormBuilder/types'
+import useAuth from '@/layout/composables/useAuth'
 import type { SignUpData } from '@/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
+
+const { signUp, isLoading } = useAuth()
 
 const signUpData: FormBuilderData<SignUpData> = {
     model: defaultModel(),
@@ -51,6 +53,7 @@ const signUpData: FormBuilderData<SignUpData> = {
     ],
     submit: {
         label: 'Sign up',
+        loading: isLoading
     },
 }
 
@@ -87,11 +90,10 @@ const resolver = ({ values }: FormResolverOptions) => {
     }
 }
 
+
 const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
     if (payload.valid) {
-        signUpReq(payload.values).then((res) => {
-            payload.reset()
-        })
+        signUp(payload.values)
     }
 }
 </script>

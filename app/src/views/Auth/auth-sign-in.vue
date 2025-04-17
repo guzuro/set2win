@@ -29,10 +29,9 @@ import type { FormBuilderData } from '@/components/FormBuilder/types'
 import type { SignInData } from '@/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 import FormBuilder from '@/components/FormBuilder/FormBuilder.vue'
-import { signInReq } from '@/api/auth.api'
-import { useUserStore } from '@/stores/userStore'
+import useAuth from '@/layout/composables/useAuth'
 
-const userStore = useUserStore()
+const { signIn, isLoading } = useAuth()
 
 const signInData: FormBuilderData<SignInData> = {
     model: {
@@ -53,6 +52,7 @@ const signInData: FormBuilderData<SignInData> = {
     ],
     submit: {
         label: 'Sign in',
+        loading: isLoading
     },
 }
 
@@ -77,14 +77,10 @@ const resolver = ({ values }: FormResolverOptions) => {
     }
 }
 
+
 const onFormSubmit = (payload: FormSubmitEvent<SignInData>) => {
     if (payload.valid) {
-        signInReq(payload.values).then((res) => {
-            userStore.$patch({
-                user: res,
-            })
-            payload.reset()
-        })
+        signIn(payload.values)
     }
 }
 </script>

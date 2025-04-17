@@ -1,10 +1,12 @@
 import type { SignInData, SignUpData } from '@/types/auth.types'
 import { api } from './axios'
+import type { AxiosRequestConfig } from 'axios'
 
-export function signUpReq(params: SignUpData) {
-    return api.post('auth/signup', params)
-}
-
-export function signInReq(params: SignInData) {
-    return api.post('auth/signin', params)
+export const AuthApi = {
+    signIn: (params: SignInData, config?: AxiosRequestConfig) => {
+        return api.post('auth/signup', params, config)
+    },
+    signUp: (params: SignUpData, config?: AxiosRequestConfig) => {
+        return api.post('auth/signin', params, config)
+    },
 }
