@@ -29,7 +29,7 @@ import type { FormBuilderData } from '@/components/FormBuilder/types'
 import type { SignInData } from '@/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 import FormBuilder from '@/components/FormBuilder/FormBuilder.vue'
-import useAuth from '@/layout/composables/useAuth'
+import useAuth from '@/composables/useAuth'
 
 const { signIn, isLoading } = useAuth()
 
