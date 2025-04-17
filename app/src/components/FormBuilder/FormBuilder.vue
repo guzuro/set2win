@@ -22,6 +22,7 @@
             <Button
                 type="submit"
                 severity="secondary"
+                :loading="form.submit.loading?.value ?? false"
                 :label="form.submit.label"
             />
         </Form>

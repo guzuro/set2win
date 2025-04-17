@@ -1,3 +1,5 @@
+import type { Ref } from "vue"
+
 export type FormBuilderData<M extends Record<string, unknown> = {}> = {
     model: FormModel<M>
     schema: FormSchema
@@ -13,5 +15,6 @@ type FormFields = {
 }
 
 type FormSubmit = {
-    label: string
+    label: string,
+    loading?: Ref<boolean>
 }
