@@ -5,10 +5,10 @@ import { userService } from '../services/user.service'
 const userRoutes = new Elysia().group('user', (app) =>
     app.get('/', async ({ cookie }) => {
         try {
-            const uLogin = cookie?.auth?.value
+            const uId = cookie?.auth?.value
 
-            if (uLogin) {
-                return await userService.get(uLogin)
+            if (uId) {
+                return await userService.get(uId)
             } else {
                 return error(401, 'Unauthorized')
             }

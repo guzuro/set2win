@@ -1,12 +1,9 @@
-import HttpException from '../exceptions/HttpException'
-import { SignInDto, SignUpDto } from '../models/auth.model'
 import { userRepository } from '../repositiry/user.reposotiry'
-import { CredentialsService } from './credentials.service'
 
 class UserService {
-    async get(login: string) {
+    async get(id: string) {
         try {
-            const [user]= await userRepository.getUserByLogin(login)
+            const [user] = await userRepository.getUserById(id)
 
             if (user) {
                 const {password, ...userFields} = user
@@ -15,8 +12,6 @@ class UserService {
             }
 
         } catch (error) {
-            console.error('Error while creating user', error)
-
             throw error
         }
     }

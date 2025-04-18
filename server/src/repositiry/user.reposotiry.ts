@@ -16,6 +16,10 @@ class UserRepository {
     async getUserByLogin(login: string) {
         return await db.select().from(usersTable).where(eq(usersTable.login, login))
     }
+
+    async getUserById(id: string) {
+        return await db.select().from(usersTable).where(eq(usersTable.id, id))
+    }
 }
 
 export const userRepository = new UserRepository()
