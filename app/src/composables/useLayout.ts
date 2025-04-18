@@ -15,7 +15,9 @@ export function useLayout() {
         layoutState.mobileSidebar = window.innerWidth < 768
     }
 
-    const isSidebarActive = computed(() => layoutState.sidebarVisible && userStore.isAuthenticated)
+    const needRenderSidebar = computed(() => userStore.isAuthenticated)
+
+    const isSidebarActive = computed(() => layoutState.sidebarVisible && needRenderSidebar.value)
 
     const handleResize = () => {
         const isMobile = window.innerWidth < 768
@@ -41,6 +43,7 @@ export function useLayout() {
     return {
         layoutState,
         isSidebarActive,
+        needRenderSidebar,
         toggleSidebar,
     }
 }
