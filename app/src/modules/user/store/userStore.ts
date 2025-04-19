@@ -1,4 +1,4 @@
-import { UserApi } from '@/api/user.api'
+import { UserApi } from '@/modules/user/api/user.api'
 import { defineStore } from 'pinia'
 
 type State = {

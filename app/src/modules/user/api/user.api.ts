@@ -1,4 +1,4 @@
-import { api } from './axios'
+import { api } from '../../../shared/api/axios'
 import type { AxiosRequestConfig } from 'axios'
 
 export const UserApi = {

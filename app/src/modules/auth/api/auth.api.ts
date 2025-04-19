@@ -1,5 +1,5 @@
-import type { SignInData, SignUpData } from '@/types/auth.types'
-import { api } from './axios'
+import type { SignInData, SignUpData } from '@/modules/auth/types/auth.types'
+import { api } from '@/shared/api/axios'
 import type { AxiosRequestConfig } from 'axios'
 
 export const AuthApi = {

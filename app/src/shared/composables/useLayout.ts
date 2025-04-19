@@ -1,5 +1,5 @@
 import { computed, onMounted, onUnmounted, reactive } from 'vue'
-import { useUserStore } from '@/stores/userStore'
+import { useUserStore } from '@/modules/user/store/userStore'
 
 const layoutState = reactive({
     sidebarVisible: true,

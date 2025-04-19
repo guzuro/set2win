@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayout } from '../composables/useLayout'
+import { useLayout } from '../shared/composables/useLayout'
 
 const { toggleSidebar, needRenderSidebar } = useLayout()
 </script>

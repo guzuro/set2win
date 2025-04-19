@@ -1,7 +1,7 @@
-import { useUserStore } from '@/stores/userStore'
-import type { SignInData, SignUpData } from '@/types/auth.types'
-import { useApi } from './useApi'
-import { AuthApi } from '@/api/auth.api'
+import { useUserStore } from '@/modules/user/store/userStore'
+import type { SignInData, SignUpData } from '@/modules/auth/types/auth.types'
+import { useApi } from '../../../shared/composables/useApi'
+import { AuthApi } from '../api/auth.api'
 import { useRouter } from 'vue-router'
 
 export default function useAuth() {

@@ -27,7 +27,7 @@
 import { RouterView } from 'vue-router'
 import AppSidebar from './AppSidebar.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { useLayout } from '../composables/useLayout'
+import { useLayout } from '../shared/composables/useLayout'
 import AppTopbar from './AppTopbar.vue'
 
 const { isSidebarActive, layoutState, toggleSidebar } = useLayout()

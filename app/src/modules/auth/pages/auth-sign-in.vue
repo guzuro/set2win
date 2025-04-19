@@ -25,11 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import type { FormBuilderData } from '@/components/FormBuilder/types'
-import type { SignInData } from '@/types/auth.types'
+import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
+import type { SignInData } from '@/modules/auth/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
-import FormBuilder from '@/components/FormBuilder/FormBuilder.vue'
-import useAuth from '@/composables/useAuth'
+import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
+import useAuth from '../composables/useAuth'
 
 const { signIn, isLoading } = useAuth()
 

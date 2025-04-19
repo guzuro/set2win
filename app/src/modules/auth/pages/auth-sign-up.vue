@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import type { FormBuilderData } from '@/components/FormBuilder/types'
-import useAuth from '@/composables/useAuth'
-import type { SignUpData } from '@/types/auth.types'
+import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
+import useAuth from '@/shared/composables/useAuth'
+import type { SignUpData } from '@/modules/auth/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 
 const { signUp, isLoading } = useAuth()
