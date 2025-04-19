@@ -10,7 +10,12 @@
                 @click="toggleSidebar"
             />
 
-            <span class="app-topbar__title"> Set2Win</span>
+            <RouterLink
+                to="/"
+                class="app-topbar__title"
+            >
+                Set2Win</RouterLink
+            >
         </div>
     </div>
 </template>
@@ -29,11 +34,8 @@ const { toggleSidebar, needRenderSidebar } = useLayout()
         @apply px-3 md:px-10 h-full gap-2 flex items-center;
     }
 
-    &__toggle {
-    }
-
     &__title {
-        @apply text-2xl;
+        @apply text-2xl hover:opacity-75;
     }
 }
 </style>

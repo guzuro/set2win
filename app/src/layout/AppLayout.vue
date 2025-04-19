@@ -8,7 +8,7 @@
     >
         <AppTopbar />
 
-        <AppSidebar />
+        <AppSidebar v-if="needRenderSidebar" />
 
         <div
             class="app-layout-mask"
@@ -26,11 +26,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppSidebar from './AppSidebar.vue'
-import { onMounted, onUnmounted, ref } from 'vue'
 import { useLayout } from './composables/useLayout'
 import AppTopbar from './AppTopbar.vue'
 
-const { isSidebarActive, layoutState, toggleSidebar } = useLayout()
+const { isSidebarActive, layoutState, toggleSidebar, needRenderSidebar } = useLayout()
 </script>
 
 <style scoped lang="scss">
