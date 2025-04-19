@@ -9,7 +9,7 @@ export type FormSchema = Array<FormFields>
 export type FormModel<M> = M
 
 type FormFields = {
-    type: 'Text'
+    type: 'Text' | 'Password'
     label: string
     model: string
 }

@@ -45,7 +45,7 @@ const signInData: FormBuilderData<SignInData> = {
             model: 'login',
         },
         {
-            type: 'Text',
+            type: 'Password',
             label: 'Password',
             model: 'password',
         },

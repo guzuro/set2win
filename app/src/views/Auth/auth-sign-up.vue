@@ -41,12 +41,12 @@ const signUpData: FormBuilderData<SignUpData> = {
             model: 'login',
         },
         {
-            type: 'Text',
+            type: 'Password',
             label: 'Password',
             model: 'password',
         },
         {
-            type: 'Text',
+            type: 'Password',
             label: 'Confirm password',
             model: 'passwordConfirm',
         },

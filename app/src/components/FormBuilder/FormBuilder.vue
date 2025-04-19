@@ -17,6 +17,14 @@
                         $form[field.model]?.invalid ? $form[field.model].error.message : undefined
                     "
                 />
+                <PasswordInput
+                    v-if="field.type === 'Password'"
+                    :name="field.model"
+                    :label="field.label"
+                    :error="
+                        $form[field.model]?.invalid ? $form[field.model].error.message : undefined
+                    "
+                />
             </div>
 
             <Button
@@ -34,6 +42,7 @@ import { Form, type FormSubmitEvent, type FormProps } from '@primevue/forms'
 
 import TextInput from '../controls/TextInput.vue'
 import type { FormBuilderData } from './types'
+import PasswordInput from '../controls/PasswordInput.vue';
 
 defineProps<{
     form: FormBuilderData<T>
