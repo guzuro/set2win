@@ -7,7 +7,7 @@ const playersRoutes = new Elysia().group('players', (app) =>
     app
         .get('/', async ({ cookie }) => {
             try {
-                const userId = cookie?.auth?.value
+                const userId = cookie?.userId?.value
 
                 if (userId) {
                     return await playersService.getUserPlayers(userId)

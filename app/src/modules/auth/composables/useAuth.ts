@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router'
 
 export default function useAuth() {
     const userStore = useUserStore()
-    const { data, error, isLoading, resolve } = useApi()
+    const { data, isLoading, resolve } = useApi()
     const { push } = useRouter()
 
     async function signIn(payload: SignInData) {

@@ -1,4 +1,5 @@
 import { authRoutes } from '@/modules/auth/routes'
+import { playersRoutes } from '@/modules/players/routes'
 import type { RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
@@ -7,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../layout/AppLayout.vue'),
         children: [
             ...authRoutes,
-
+            ...playersRoutes,
             {
                 name: 'Dashboard',
                 path: '',

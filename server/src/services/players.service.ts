@@ -5,7 +5,11 @@ import { playersRepository } from '../repositiry/players.repository'
 class PlayersService {
     async getUserPlayers(userId: string) {
         try {
-            return await playersRepository.getUserPlayers(userId)
+            const players = await playersRepository.getUserPlayers(userId)
+
+            return {
+                players,
+            }
         } catch (error) {
             throw new PgException(error)
         }
