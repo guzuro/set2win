@@ -5,7 +5,7 @@ import { userService } from '../services/user.service'
 const userRoutes = new Elysia().group('user', (app) =>
     app.get('/', async ({ cookie }) => {
         try {
-            const uId = cookie?.auth?.value
+            const uId = cookie?.userId?.value
 
             if (uId) {
                 return await userService.get(uId)

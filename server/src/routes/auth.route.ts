@@ -12,7 +12,7 @@ const authRoutes = new Elysia().group('auth', (app) =>
                 try {
                     const userDetails = await authService.signin(body)
 
-                    cookie.auth.set({
+                    cookie.userId.set({
                         value: userDetails.id,
                         maxAge: 60 * 5, // 5m
                     })
