@@ -1,32 +1,22 @@
 <template>
-    <div class="text-input flex flex-col gap-2">
-        <span>
-            <label :for="label">{{ label }}</label>
-            <sup
-                v-if="helpMessage"
-                v-tooltip.top="helpMessage"
-            >
-                <i class="pi pi-question-circle"></i>
-            </sup>
-        </span>
+    <FieldWrapper
+        class="text-input"
+        :error="error"
+        :help-message="helpMessage"
+        :label="label"
+    >
         <InputText
             :id="label"
             v-model="model"
             :name="name"
             :aria-describedby="`${label}-help`"
         />
-        <Message
-            v-if="error"
-            size="small"
-            severity="error"
-            variant="simple"
-        >
-            {{ error }}
-        </Message>
-    </div>
+    </FieldWrapper>
 </template>
 
 <script setup lang="ts">
+import FieldWrapper from './components/FieldWrapper.vue'
+
 const model = defineModel<string>()
 
 defineProps<{
