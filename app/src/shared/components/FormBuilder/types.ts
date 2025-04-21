@@ -1,19 +1,24 @@
-import type { Ref } from "vue"
+import type { Ref } from 'vue'
 
 export type FormBuilderData<M extends Record<string, unknown> = {}> = {
     model: FormModel<M>
     schema: FormSchema
     submit: FormSubmit
 }
-// export type FormSchema = Array<FormFields>
-export type FormSchemaStructure = FormContainer | FormFields
+
+export type FormModel<M> = M
+
+export type FormSchema = Array<FormContainer | FormField>
+
 export type FormContainer = {
-    type: "Container"
-    fields: Array<FormFields>
+    type: 'Container'
+    fields: Array<FormField>
 }
 
-export type FormSchema = Array<FormSchemaStructure>
-export type FormModel<M> = M
+export type FormField = {
+    type: 'Simple'
+    field: FormFields
+}
 
 export type FormFields = {
     type: 'Text' | 'Password'
@@ -22,6 +27,6 @@ export type FormFields = {
 }
 
 type FormSubmit = {
-    label: string,
+    label: string
     loading?: Ref<boolean>
 }

@@ -8,30 +8,32 @@
             class="flex flex-col gap-4 w-full"
             @submit="submitRaw"
         >
-            <div v-for="item in form.schema">
-                <div
+            <template v-for="item in form.schema">
+                <FormBuilderContainer
                     v-if="item.type === 'Container'"
-                    :class="`grid gap-2 grid-cols-${item.fields.length}`"
+                    :cols="item.fields.length"
                 >
                     <FormField
                         v-for="field in item.fields"
                         :error="
-                            $form[field.model]?.invalid
-                                ? $form[field.model].error.message
+                            $form[field.field.model]?.invalid
+                                ? $form[field.field.model].error.message
                                 : undefined
                         "
-                        :field="field"
+                        :field="field.field"
                     />
-                </div>
-                <template v-else>
-                    <FormField
-                        :error="
-                            $form[item.model]?.invalid ? $form[item.model].error.message : undefined
-                        "
-                        :field="item"
-                    />
-                </template>
-            </div>
+                </FormBuilderContainer>
+
+                <FormField
+                    v-else
+                    :error="
+                        $form[item.field.model]?.invalid
+                            ? $form[item.field.model].error.message
+                            : undefined
+                    "
+                    :field="item.field"
+                />
+            </template>
 
             <Button
                 type="submit"
@@ -48,8 +50,9 @@ import { Form, type FormSubmitEvent, type FormProps } from '@primevue/forms'
 import FormField from './FormField.vue'
 
 import type { FormBuilderData } from './types'
+import FormBuilderContainer from './FormBuilderContainer.vue'
 
-const props = defineProps<{
+defineProps<{
     form: FormBuilderData<T>
     resolver: FormProps['resolver']
 }>()
