@@ -37,9 +37,40 @@ export default function useAuth() {
         }
     }
 
+    function validateLogin(login: string) {
+        if (!login) {
+            return [{ message: 'Login is required.' }]
+        } else {
+            return []
+        }
+    }
+
+    function validatePassword(password: string) {
+        const passMinLen = 5
+
+        if (!password) {
+            return [{ message: 'Password is required.' }]
+        } else if (password.length < passMinLen) {
+            return [{ message: `Password must be minimum ${passMinLen} symbols` }]
+        } else {
+            return []
+        }
+    }
+
+    function validatePasswordConfirm(password: string, passwordConfirm: string) {
+        if (password !== passwordConfirm) {
+            return [{ message: 'Passwords are not equal.' }]
+        } else {
+            return []
+        }
+    }
+
     return {
         signIn,
         signUp,
         isLoading,
+        validateLogin,
+        validatePassword,
+        validatePasswordConfirm,
     }
 }

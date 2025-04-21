@@ -31,30 +31,39 @@ import type { SignUpData } from '@/modules/auth/types/auth.types'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 
-const { signUp, isLoading } = useAuth()
+const { signUp, isLoading, validateLogin, validatePassword, validatePasswordConfirm } = useAuth()
 
 const signUpData: FormBuilderData<SignUpData> = {
     model: defaultModel(),
     schema: [
         {
-            type: 'Text',
-            label: 'Login',
-            model: 'login',
+            type: 'Simple',
+            field: {
+                type: 'Text',
+                label: 'Login',
+                model: 'login',
+            },
         },
         {
-            type: 'Password',
-            label: 'Password',
-            model: 'password',
+            type: 'Simple',
+            field: {
+                type: 'Password',
+                label: 'Password',
+                model: 'password',
+            },
         },
         {
-            type: 'Password',
-            label: 'Confirm password',
-            model: 'passwordConfirm',
+            type: 'Simple',
+            field: {
+                type: 'Password',
+                label: 'Confirm password',
+                model: 'passwordConfirm',
+            },
         },
     ],
     submit: {
         label: 'Sign up',
-        loading: isLoading
+        loading: isLoading,
     },
 }
 
@@ -71,26 +80,15 @@ const resolver = ({ values }: FormResolverOptions) => {
 
     const { login, password, passwordConfirm } = values
 
-    if (!login) {
-        errors.login = [{ message: 'Login is required.' }]
-    }
-
-    if (!password) {
-        errors.password = [{ message: 'Password is required.' }]
-    } else if (password && password.length < 5) {
-        errors.password = [{ message: 'Password must be minimum 5 symbols' }]
-    }
-
-    if (passwordConfirm !== password) {
-        errors.passwordConfirm = [{ message: 'Passwords are not equal.' }]
-    }
+    errors.login = validateLogin(login)
+    errors.password = validatePassword(password)
+    errors.passwordConfirm = validatePasswordConfirm(password, passwordConfirm)
 
     return {
         values,
         errors,
     }
 }
-
 
 const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
     if (payload.valid) {

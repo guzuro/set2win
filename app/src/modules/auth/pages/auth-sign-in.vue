@@ -31,7 +31,7 @@ import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
 import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 import useAuth from '../composables/useAuth'
 
-const { signIn, isLoading } = useAuth()
+const { signIn, isLoading, validateLogin, validatePassword } = useAuth()
 
 const signInData: FormBuilderData<SignInData> = {
     model: {
@@ -40,19 +40,25 @@ const signInData: FormBuilderData<SignInData> = {
     },
     schema: [
         {
-            type: 'Text',
-            label: 'Login',
-            model: 'login',
+            type: 'Simple',
+            field: {
+                type: 'Text',
+                label: 'Login',
+                model: 'login',
+            },
         },
         {
-            type: 'Password',
-            label: 'Password',
-            model: 'password',
+            type: 'Simple',
+            field: {
+                type: 'Password',
+                label: 'Password',
+                model: 'password',
+            },
         },
     ],
     submit: {
         label: 'Sign in',
-        loading: isLoading
+        loading: isLoading,
     },
 }
 
@@ -61,22 +67,14 @@ const resolver = ({ values }: FormResolverOptions) => {
 
     const { login, password } = values
 
-    if (!login) {
-        errors.login = [{ message: 'Login is required.' }]
-    }
-
-    if (!password) {
-        errors.password = [{ message: 'Password is required.' }]
-    } else if (password && password.length < 5) {
-        errors.password = [{ message: 'Password must be minimum 5 symbols' }]
-    }
+    errors.login = validateLogin(login)
+    errors.password = validatePassword(password)
 
     return {
         values,
         errors,
     }
 }
-
 
 const onFormSubmit = (payload: FormSubmitEvent<SignInData>) => {
     if (payload.valid) {
