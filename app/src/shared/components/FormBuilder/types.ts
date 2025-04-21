@@ -5,10 +5,17 @@ export type FormBuilderData<M extends Record<string, unknown> = {}> = {
     schema: FormSchema
     submit: FormSubmit
 }
-export type FormSchema = Array<FormFields>
+// export type FormSchema = Array<FormFields>
+export type FormSchemaStructure = FormContainer | FormFields
+export type FormContainer = {
+    type: "Container"
+    fields: Array<FormFields>
+}
+
+export type FormSchema = Array<FormSchemaStructure>
 export type FormModel<M> = M
 
-type FormFields = {
+export type FormFields = {
     type: 'Text' | 'Password'
     label: string
     model: string

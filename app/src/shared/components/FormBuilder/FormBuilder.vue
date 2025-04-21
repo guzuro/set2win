@@ -8,23 +8,29 @@
             class="flex flex-col gap-4 w-full"
             @submit="submitRaw"
         >
-            <div v-for="field in form.schema">
-                <TextInput
-                    v-if="field.type === 'Text'"
-                    :name="field.model"
-                    :label="field.label"
-                    :error="
-                        $form[field.model]?.invalid ? $form[field.model].error.message : undefined
-                    "
-                />
-                <PasswordInput
-                    v-if="field.type === 'Password'"
-                    :name="field.model"
-                    :label="field.label"
-                    :error="
-                        $form[field.model]?.invalid ? $form[field.model].error.message : undefined
-                    "
-                />
+            <div v-for="item in form.schema">
+                <div
+                    v-if="item.type === 'Container'"
+                    :class="`grid gap-2 grid-cols-${item.fields.length}`"
+                >
+                    <FormField
+                        v-for="field in item.fields"
+                        :error="
+                            $form[field.model]?.invalid
+                                ? $form[field.model].error.message
+                                : undefined
+                        "
+                        :field="field"
+                    />
+                </div>
+                <template v-else>
+                    <FormField
+                        :error="
+                            $form[item.model]?.invalid ? $form[item.model].error.message : undefined
+                        "
+                        :field="item"
+                    />
+                </template>
             </div>
 
             <Button
@@ -39,12 +45,11 @@
 
 <script setup lang="ts" generic="T extends Record<string, any>">
 import { Form, type FormSubmitEvent, type FormProps } from '@primevue/forms'
+import FormField from './FormField.vue'
 
-import TextInput from '../controls/TextInput.vue'
 import type { FormBuilderData } from './types'
-import PasswordInput from '../controls/PasswordInput.vue';
 
-defineProps<{
+const props = defineProps<{
     form: FormBuilderData<T>
     resolver: FormProps['resolver']
 }>()
