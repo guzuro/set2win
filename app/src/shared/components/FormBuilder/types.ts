@@ -1,3 +1,4 @@
+import type { InputTextProps, PasswordProps, SelectProps } from 'primevue'
 import type { Ref } from 'vue'
 
 export type FormBuilderData<M extends Record<string, unknown> = {}> = {
@@ -20,10 +21,24 @@ export type FormField = {
     field: FormFields
 }
 
-export type FormFields = {
-    type: 'Text' | 'Password'
+type BaseFormFields<T extends Record<string, any> = {}> = {
     label: string
     model: string
+    attrs?: T
+}
+
+export type FormFields = TextField | PasswordField | SelectField
+
+type TextField = BaseFormFields<InputTextProps> & {
+    type: 'Text'
+}
+
+type PasswordField = BaseFormFields<PasswordProps> & {
+    type: 'Password'
+}
+
+type SelectField = BaseFormFields<SelectProps> & {
+    type: 'Select',
 }
 
 type FormSubmit = {

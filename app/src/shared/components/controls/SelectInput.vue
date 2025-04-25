@@ -1,17 +1,16 @@
 <template>
     <FieldWrapper
-        class="password-input"
+        class="select-input"
         :error="error"
         :help-message="helpMessage"
         :label="label"
     >
-        <Password
+        <Select
             :id="label"
             v-model="model"
             :name="name"
-            toggleMask
-            fluid
             :aria-describedby="`${label}-help`"
+            v-bind="$props"
         >
             <template
                 v-for="(_, name) in slots"
@@ -22,25 +21,26 @@
                     v-bind="slotProps || {}"
                 />
             </template>
-        </Password>
+        </Select>
     </FieldWrapper>
 </template>
 
 <script setup lang="ts">
-import type { PasswordProps, PasswordSlots } from 'primevue'
+import type { SelectProps, SelectSlots } from 'primevue'
 import FieldWrapper from './components/FieldWrapper.vue'
 
-interface PasswordInputProps extends PasswordProps {
+const model = defineModel<string>()
+
+const slots = defineSlots<SelectSlots>()
+
+interface SelectInputsProps extends SelectProps {
     label: string
     helpMessage?: string
     error?: string
     name?: string
 }
 
-const model = defineModel<string>()
-const slots = defineSlots<PasswordSlots>()
-
-defineProps<PasswordInputProps>()
+const props = defineProps<SelectInputsProps>()
 </script>
 
 <style scoped></style>

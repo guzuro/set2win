@@ -13,26 +13,50 @@
                     v-if="item.type === 'Container'"
                     :cols="item.fields.length"
                 >
-                    <FormField
-                        v-for="field in item.fields"
-                        :error="
-                            $form[field.field.model]?.invalid
-                                ? $form[field.field.model].error.message
-                                : undefined
-                        "
-                        :field="field.field"
-                    />
+                    <template v-for="field in item.fields">
+                        <slot
+                            v-if="slots[field.field.model]"
+                            :error="
+                                $form[field.field.model]?.invalid
+                                    ? $form[field.field.model].error.message
+                                    : undefined
+                            "
+                            :field="field.field"
+                            :name="field.field.model"
+                        />
+                        <FormField
+                            v-else
+                            :error="
+                                $form[field.field.model]?.invalid
+                                    ? $form[field.field.model].error.message
+                                    : undefined
+                            "
+                            :field="field.field"
+                        />
+                    </template>
                 </FormBuilderContainer>
 
-                <FormField
-                    v-else
-                    :error="
-                        $form[item.field.model]?.invalid
-                            ? $form[item.field.model].error.message
-                            : undefined
-                    "
-                    :field="item.field"
-                />
+                <template v-else>
+                    <slot
+                        v-if="slots[item.field.model]"
+                        :error="
+                            $form[item.field.model]?.invalid
+                                ? $form[item.field.model].error.message
+                                : undefined
+                        "
+                        :field="item.field"
+                        :name="item.field.model"
+                    />
+                    <FormField
+                        v-else
+                        :error="
+                            $form[item.field.model]?.invalid
+                                ? $form[item.field.model].error.message
+                                : undefined
+                        "
+                        :field="item.field"
+                    />
+                </template>
             </template>
 
             <Button
@@ -51,6 +75,9 @@ import FormField from './FormField.vue'
 
 import type { FormBuilderData } from './types'
 import FormBuilderContainer from './FormBuilderContainer.vue'
+import { useSlots } from 'vue'
+
+const slots = useSlots()
 
 defineProps<{
     form: FormBuilderData<T>
