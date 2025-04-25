@@ -24,6 +24,7 @@ declare module 'vue' {
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('primevue/select')['default']
     SignInForm: typeof import('./src/components/auth/SignInForm.vue')['default']
     TextInput: typeof import('./src/components/controls/TextInput.vue')['default']
   }
