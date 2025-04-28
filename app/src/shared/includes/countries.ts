@@ -1,4 +1,4 @@
-export const countryList = {
+export const countries = {
     AF: 'Afghanistan',
     AL: 'Albania',
     DZ: 'Algeria',

@@ -12,14 +12,37 @@
                     :error="error"
                     v-bind="field.attrs"
                 >
-                    <template #option="slotProps">
+                    <template #option="{ option }">
                         <div class="flex items-center gap-2">
                             <img
-                                :alt="slotProps.option.label"
-                                :src="`https://flags.fmcdn.net/data/flags/mini/${slotProps.option.value.toLowerCase()}.png`"
-                                style="width: 18px"
+                                :alt="option.label"
+                                class="w-5 h-5 rounded-full"
+                                :src="`https://flags.fmcdn.net/data/flags/mini/${option.value.toLowerCase()}.png`"
                             />
-                            <div>{{ slotProps.option.label }}</div>
+                            <span>{{ option.label }}</span>
+                        </div>
+                    </template>
+                </SelectInput>
+            </template>
+            <template #favoriteSurface="{ field, error }">
+                <SelectInput
+                    v-if="field.type === 'Select'"
+                    :name="field.model"
+                    :label="field.label"
+                    :error="error"
+                    v-bind="field.attrs"
+                >
+                    <template #option="{ option }">
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-5 h-5 rounded-full"
+                                :class="{
+                                    'bg-blue-600': option.value === 'hard',
+                                    'bg-green-600': option.value === 'grass',
+                                    'bg-orange-600': option.value === 'clay',
+                                }"
+                            />
+                            <span>{{ option.label }}</span>
                         </div>
                     </template>
                 </SelectInput>
@@ -31,9 +54,10 @@
 <script setup lang="ts">
 import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
-import { countryList } from '@/shared/includes/countriesList'
+import { countries } from '@/shared/includes/countries'
 import type { FormResolverOptions } from '@primevue/forms'
 import SelectInput from '@/shared/components/controls/SelectInput.vue'
+import { surfaceOptions } from '@/shared/includes/surfaceOptions'
 
 const createPlayerForm: FormBuilderData<any> = {
     model: {
@@ -52,6 +76,18 @@ const createPlayerForm: FormBuilderData<any> = {
                 label: 'Player name',
             },
         },
+
+        {
+            type: 'Simple',
+            field: {
+                type: 'DatePicker',
+                model: 'birthDate',
+                label: 'Birth date',
+                attrs: {
+                    dateFormat: "dd.mm.yy"
+                }   
+            },
+        },
         {
             type: 'Simple',
             field: {
@@ -60,7 +96,20 @@ const createPlayerForm: FormBuilderData<any> = {
                 label: 'Country',
                 attrs: {
                     virtualScrollerOptions: { itemSize: 38 },
-                    options: Object.entries(countryList).map(([k, v]) => ({ label: v, value: k })),
+                    options: Object.entries(countries).map(([k, v]) => ({ label: v, value: k })),
+                    optionLabel: 'label',
+                    optionValue: 'value',
+                },
+            },
+        },
+        {
+            type: 'Simple',
+            field: {
+                type: 'Select',
+                model: 'favoriteSurface',
+                label: 'Favorite surface',
+                attrs: {
+                    options: [...surfaceOptions],
                     optionLabel: 'label',
                     optionValue: 'value',
                 },
