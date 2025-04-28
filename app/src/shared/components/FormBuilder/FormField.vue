@@ -19,6 +19,13 @@
             :error="error"
             v-bind="field.attrs"
         />
+        <DatePickerInput
+            v-if="field.type === 'DatePicker'"
+            :name="field.model"
+            :label="field.label"
+            :error="error"
+            v-bind="field.attrs"
+        />
     </div>
 </template>
 
@@ -27,12 +34,12 @@ import TextInput from '../controls/TextInput.vue'
 import PasswordInput from '../controls/PasswordInput.vue'
 import type { FormFields } from './types'
 import SelectInput from '../controls/SelectInput.vue'
+import DatePickerInput from '../controls/DatePickerInput.vue'
 
 defineProps<{
     field: FormFields
     error?: string
 }>()
-
 </script>
 
 <style scoped></style>

@@ -1,4 +1,4 @@
-import type { InputTextProps, PasswordProps, SelectProps } from 'primevue'
+import type { DatePickerProps, InputTextProps, PasswordProps, SelectProps } from 'primevue'
 import type { Ref } from 'vue'
 
 export type FormBuilderData<M extends Record<string, unknown> = {}> = {
@@ -27,7 +27,7 @@ type BaseFormFields<T extends Record<string, any> = {}> = {
     attrs?: T
 }
 
-export type FormFields = TextField | PasswordField | SelectField
+export type FormFields = TextField | PasswordField | SelectField | DatePickerField
 
 type TextField = BaseFormFields<InputTextProps> & {
     type: 'Text'
@@ -38,7 +38,11 @@ type PasswordField = BaseFormFields<PasswordProps> & {
 }
 
 type SelectField = BaseFormFields<SelectProps> & {
-    type: 'Select',
+    type: 'Select'
+}
+
+type DatePickerField = BaseFormFields<DatePickerProps> & {
+    type: 'DatePicker'
 }
 
 type FormSubmit = {
