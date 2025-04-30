@@ -53,6 +53,9 @@ const signInData: FormBuilderData<SignInData> = {
                 type: 'Password',
                 label: 'Password',
                 model: 'password',
+                attrs: {
+                    fluid: true,
+                }
             },
         },
     ],

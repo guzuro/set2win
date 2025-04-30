@@ -50,6 +50,9 @@ const signUpData: FormBuilderData<SignUpData> = {
                 type: 'Password',
                 label: 'Password',
                 model: 'password',
+                attrs: {
+                    fluid: true,
+                },
             },
         },
         {
@@ -58,6 +61,9 @@ const signUpData: FormBuilderData<SignUpData> = {
                 type: 'Password',
                 label: 'Confirm password',
                 model: 'passwordConfirm',
+                attrs: {
+                    fluid: true,
+                },
             },
         },
     ],
