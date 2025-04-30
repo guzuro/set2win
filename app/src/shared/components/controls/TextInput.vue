@@ -7,9 +7,9 @@
     >
         <InputText
             :id="label"
-            v-model="model"
-            :name="name"
             :aria-describedby="`${label}-help`"
+            v-bind="props"
+            @update:model-value="$emit('update:modelValue', $event)"
         >
             <template
                 v-for="(_, name) in slots"
@@ -35,10 +35,8 @@ interface TextInputProps extends InputTextProps {
     name?: string
 }
 
-const model = defineModel<string>()
 const slots = defineSlots<InputTextSlots>()
-
-defineProps<TextInputProps>()
+const props = defineProps<TextInputProps>()
 </script>
 
 <style scoped></style>

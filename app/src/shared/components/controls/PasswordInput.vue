@@ -7,11 +7,9 @@
     >
         <Password
             :id="label"
-            v-model="model"
-            :name="name"
-            toggleMask
-            fluid
             :aria-describedby="`${label}-help`"
+            v-bind="props"
+            @update:model-value="$emit('update:modelValue', $event)"
         >
             <template
                 v-for="(_, name) in slots"
@@ -37,10 +35,8 @@ interface PasswordInputProps extends PasswordProps {
     name?: string
 }
 
-const model = defineModel<string>()
+const props = defineProps<PasswordInputProps>()
 const slots = defineSlots<PasswordSlots>()
-
-defineProps<PasswordInputProps>()
 </script>
 
 <style scoped></style>

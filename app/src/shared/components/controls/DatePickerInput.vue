@@ -8,9 +8,9 @@
         <DatePicker
             :id="label"
             v-model="model"
+            :fluid="props.fluid"
             :name="name"
-            toggleMask
-            fluid
+            :disabled="props.disabled"
             :aria-describedby="`${label}-help`"
         >
             <template
@@ -37,10 +37,9 @@ interface DatePickerInputProps extends DatePickerProps {
     name?: string
 }
 
-const model = defineModel<DatePickerProps['modelValue']>()
 const slots = defineSlots<DatePickerSlots>()
-
-defineProps<DatePickerInputProps>()
+const model = defineModel<DatePickerProps['modelValue']>()
+const props = defineProps<DatePickerInputProps>()
 </script>
 
 <style scoped></style>

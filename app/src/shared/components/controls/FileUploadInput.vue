@@ -1,12 +1,14 @@
 <template>
     <FieldWrapper
-        class="select-input"
+        class="datepicker-input"
         :error="error"
         :help-message="helpMessage"
         :label="label"
     >
-        <Select
+        <FileUpload
             :id="label"
+            toggleMask
+            fluid
             :aria-describedby="`${label}-help`"
             v-bind="props"
             @update:model-value="$emit('update:modelValue', $event)"
@@ -20,23 +22,23 @@
                     v-bind="slotProps || {}"
                 />
             </template>
-        </Select>
+        </FileUpload>
     </FieldWrapper>
 </template>
 
 <script setup lang="ts">
-import type { SelectProps, SelectSlots } from 'primevue'
+import { FileUpload, type FileUploadProps, type FileUploadSlots } from 'primevue'
 import FieldWrapper from './components/FieldWrapper.vue'
 
-interface SelectInputsProps extends SelectProps {
+interface FileUploadInputProps extends FileUploadProps {
     label: string
     helpMessage?: string
     error?: string
     name?: string
 }
 
-const slots = defineSlots<SelectSlots>()
-const props = defineProps<SelectInputsProps>()
+const slots = defineSlots<FileUploadSlots>()
+const props = defineProps<FileUploadInputProps>()
 </script>
 
 <style scoped></style>
