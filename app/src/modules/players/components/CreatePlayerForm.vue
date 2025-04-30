@@ -66,15 +66,33 @@ const createPlayerForm: FormBuilderData<any> = {
         birthDate: '',
         hand: 'right',
         favoriteSurface: 'clay',
+        avatar: null,
     },
     schema: [
         {
-            type: 'Simple',
-            field: {
-                type: 'Text',
-                model: 'fullName',
-                label: 'Player name',
-            },
+            type: 'Container',
+            fields: [
+                {
+                    type: 'Simple',
+                    field: {
+                        type: 'Text',
+                        model: 'fullName',
+                        label: 'Player name',
+                    },
+                },
+                {
+                    type: 'Simple',
+                    field: {
+                        type: 'FileUpload',
+                        model: 'avatar',
+                        label: 'Player avatar',
+                        attrs: {
+                            accept: 'image/*',
+                            mode: 'basic',
+                        },
+                    },
+                },
+            ],
         },
 
         {
@@ -84,8 +102,9 @@ const createPlayerForm: FormBuilderData<any> = {
                 model: 'birthDate',
                 label: 'Birth date',
                 attrs: {
-                    dateFormat: "dd.mm.yy"
-                }   
+                    dateFormat: 'dd.mm.yy',
+                    fluid: true,
+                },
             },
         },
         {
@@ -121,6 +140,7 @@ const createPlayerForm: FormBuilderData<any> = {
 
 function createPlayer({ values }: FormResolverOptions) {
     const errors = {}
+
     return {
         values,
         errors,
