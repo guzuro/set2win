@@ -5,12 +5,14 @@
             :name="field.model"
             :label="field.label"
             :error="error"
+            v-bind="field.attrs"
         />
         <PasswordInput
             v-if="field.type === 'Password'"
             :name="field.model"
             :label="field.label"
             :error="error"
+            v-bind="field.attrs"
         />
         <SelectInput
             v-if="field.type === 'Select'"
@@ -26,6 +28,14 @@
             :error="error"
             v-bind="field.attrs"
         />
+        <FileUploadInput
+            v-if="field.type === 'FileUpload'"
+            :name="field.model"
+            :label="field.label"
+            :error="error"
+            v-bind="field.attrs"
+        />
+
     </div>
 </template>
 
@@ -35,6 +45,7 @@ import PasswordInput from '../controls/PasswordInput.vue'
 import type { FormFields } from './types'
 import SelectInput from '../controls/SelectInput.vue'
 import DatePickerInput from '../controls/DatePickerInput.vue'
+import FileUploadInput from '../controls/FileUploadInput.vue'
 
 defineProps<{
     field: FormFields
