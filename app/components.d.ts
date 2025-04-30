@@ -12,6 +12,7 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
     copy: typeof import('./src/components/controls/TextInput copy.vue')['default']
+    DatePicker: typeof import('primevue/datepicker')['default']
     Drawer: typeof import('primevue/drawer')['default']
     Form: typeof import('@primevue/forms/form')['default']
     FormBuilder: typeof import('./src/components/FormBuilder/FormBuilder.vue')['default']
