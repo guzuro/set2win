@@ -65,7 +65,7 @@ const signInData: FormBuilderData<SignInData> = {
     },
 }
 
-const resolver = ({ values }: FormResolverOptions) => {
+function resolver({ values }: FormResolverOptions) {
     const errors: Partial<Record<keyof SignInData, Array<{ message: string }>>> = {}
 
     const { login, password } = values
@@ -79,7 +79,7 @@ const resolver = ({ values }: FormResolverOptions) => {
     }
 }
 
-const onFormSubmit = (payload: FormSubmitEvent<SignInData>) => {
+function onFormSubmit(payload: FormSubmitEvent<SignInData>) {
     if (payload.valid) {
         signIn(payload.values)
     }

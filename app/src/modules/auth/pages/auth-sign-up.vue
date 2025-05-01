@@ -81,7 +81,7 @@ function defaultModel(): SignUpData {
     }
 }
 
-const resolver = ({ values }: FormResolverOptions) => {
+function resolver({ values }: FormResolverOptions) {
     const errors: Partial<Record<keyof SignUpData, Array<{ message: string }>>> = {}
 
     const { login, password, passwordConfirm } = values
@@ -96,7 +96,7 @@ const resolver = ({ values }: FormResolverOptions) => {
     }
 }
 
-const onFormSubmit = (payload: FormSubmitEvent<SignUpData>) => {
+function onFormSubmit(payload: FormSubmitEvent<SignUpData>) {
     if (payload.valid) {
         signUp(payload.values)
     }
