@@ -1,11 +1,10 @@
 <template>
     <div class="players-list">
-        <div
+        <ASpin
             v-if="listLoading"
-            class="players-list-spinner text-center"
-        >
-            <ProgressSpinner class="!w-10 !h-10" />
-        </div>
+            class="players-list-spinner !w-10 !h-10"
+        />
+
         <template v-else>
             <template v-if="list?.length">
                 <Card v-for="player in list">
@@ -18,16 +17,21 @@
                 v-else
                 class="text-center"
             >
-                <Button @click="drawerOpen = !drawerOpen"> Create your first player! </Button>
+                <AButton
+                    type="primary"
+                    @click="drawerOpen = !drawerOpen"
+                >
+                    Create your first player!
+                </AButton>
 
-                <Drawer
+                <ADrawer
                     v-model:visible="drawerOpen"
-                    header="Create player"
+                    title="Create player"
                     position="right"
-                    class="!w-full md:!w-[40rem]"
+                    width="600px"
                 >
                     <CreatePlayerForm />
-                </Drawer>
+                </ADrawer>
             </div>
         </template>
     </div>
