@@ -1,26 +1,22 @@
 <template>
     <div class="auth-sign-up">
-        <Card>
-            <template #title>Sign up</template>
+        <ACard title="Sign up">
+            <FormBuilder
+                :form="signUpData"
+                :resolver="resolver"
+                @form-submit="onFormSubmit"
+            />
 
-            <template #content>
-                <FormBuilder
-                    :form="signUpData"
-                    :resolver="resolver"
-                    @form-submit="onFormSubmit"
-                />
-
-                <div class="mt-5 text-center">
-                    Already have an account?
-                    <RouterLink
-                        :to="{ name: 'SignIn' }"
-                        class="text-blue-400"
-                    >
-                        Sign In
-                    </RouterLink>
-                </div>
-            </template>
-        </Card>
+            <div class="mt-5 text-center">
+                Already have an account?
+                <RouterLink
+                    :to="{ name: 'SignIn' }"
+                    class="text-blue-400"
+                >
+                    Sign In
+                </RouterLink>
+            </div>
+        </ACard>
     </div>
 </template>
 

@@ -1,26 +1,22 @@
 <template>
     <div class="auth-sign-in">
-        <Card>
-            <template #title>Sign in</template>
+        <ACard title="Sign in">
+            <FormBuilder
+                :form="signInData"
+                :resolver="resolver"
+                @form-submit="onFormSubmit"
+            />
 
-            <template #content>
-                <FormBuilder
-                    :form="signInData"
-                    :resolver="resolver"
-                    @form-submit="onFormSubmit"
-                />
-
-                <div class="mt-5 text-center">
-                    Dont have an account?
-                    <RouterLink
-                        :to="{ name: 'SignUp' }"
-                        class="text-blue-400"
-                    >
-                        Sign Up
-                    </RouterLink>
-                </div>
-            </template>
-        </Card>
+            <div class="mt-5 text-center">
+                Dont have an account?
+                <RouterLink
+                    :to="{ name: 'SignUp' }"
+                    class="text-blue-400"
+                >
+                    Sign Up
+                </RouterLink>
+            </div>
+        </ACard>
     </div>
 </template>
 
@@ -55,7 +51,7 @@ const signInData: FormBuilderData<SignInData> = {
                 model: 'password',
                 attrs: {
                     fluid: true,
-                }
+                },
             },
         },
     ],

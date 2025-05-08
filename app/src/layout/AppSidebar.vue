@@ -38,11 +38,4 @@ const handleClick: MenuProps['onClick'] = (e) => {
 
     height: calc(100vh - 10rem);
 }
-
-// .router-link-exact-active {
-//     .p-menu-item-link {
-//         color: var(--p-menu-item-focus-color);
-//         background: var(--p-menu-item-focus-background);
-//     }
-// }
 </style>

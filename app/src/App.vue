@@ -1,13 +1,5 @@
 <template>
-    <AConfigProvider
-        :theme="{
-            token: {
-                colorPrimary: '#C1E156',
-                colorPrimaryHover: '#A8C84A',
-                colorTextLightSolid: '#333333',
-            },
-        }"
-    >
+    <AConfigProvider>
         <RouterView />
     </AConfigProvider>
 </template>

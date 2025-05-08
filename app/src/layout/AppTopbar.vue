@@ -1,14 +1,14 @@
 <template>
     <div class="app-topbar">
         <div class="app-topbar-inner">
-            <Button
+            <AButton
                 v-if="needRenderSidebar"
                 class="app-topbar__toggle"
                 aria-label="Toggle sidebar"
                 @click="toggleSidebar"
             >
                 <template #icon> <MenuOutlined /> </template>
-            </Button>
+            </AButton>
 
             <RouterLink
                 to="/"
@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import { useLayout } from './composables/useLayout'
-import { Button } from 'ant-design-vue'
 import { MenuOutlined } from '@ant-design/icons-vue'
 
 const { toggleSidebar, needRenderSidebar } = useLayout()
