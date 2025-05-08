@@ -1,43 +1,35 @@
 <template>
-    <Card class="app-layout-sidebar">
-        <template #content>
-            <Menu
-                :model="items"
-                class="!border-none"
-            >
-                <template #item="{ item, props }">
-                    <router-link
-                        v-slot="{ href, navigate }"
-                        :to="{
-                            path: item.url,
-                        }"
-                    >
-                        <a
-                            :href="href"
-                            v-bind="props.action"
-                            @click="navigate"
-                        >
-                            <span :class="item.icon" />
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </router-link>
-                </template>
-            </Menu>
-        </template>
-    </Card>
+    <ACard
+        class="app-layout-sidebar"
+        size="small"
+    >
+        <AMenu
+            :items="items"
+            class="!border-none"
+            @click="handleClick"
+        />
+    </ACard>
 </template>
 
 <script setup lang="ts">
-import type { MenuItem } from 'primevue/menuitem'
-import { ref } from 'vue'
+import { TeamOutlined } from '@ant-design/icons-vue'
+import type { ItemType, MenuProps } from 'ant-design-vue'
+import { h, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const items = ref<Array<MenuItem>>([
+const { push } = useRouter()
+
+const items = ref<Array<ItemType>>([
     {
+        key: '/players',
         label: 'Players',
-        icon: 'pi pi-palette',
-        url: '/players',
+        icon: () => h(TeamOutlined),
     },
 ])
+
+const handleClick: MenuProps['onClick'] = (e) => {
+    push(e.key.toString())
+}
 </script>
 
 <style scoped lang="scss">
@@ -47,10 +39,10 @@ const items = ref<Array<MenuItem>>([
     height: calc(100vh - 10rem);
 }
 
-.router-link-exact-active {
-    .p-menu-item-link {
-        color: var(--p-menu-item-focus-color);
-        background: var(--p-menu-item-focus-background);
-    }
-}
+// .router-link-exact-active {
+//     .p-menu-item-link {
+//         color: var(--p-menu-item-focus-color);
+//         background: var(--p-menu-item-focus-background);
+//     }
+// }
 </style>
