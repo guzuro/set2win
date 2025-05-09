@@ -14,8 +14,8 @@ export const useUserStore = defineStore('userStore', {
             try {
                 this.user = await UserApi.getUser()
             } catch (error) {
-                console.error(error);
-                
+                console.error(error)
+
                 throw error
             }
         },

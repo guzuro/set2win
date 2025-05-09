@@ -1,14 +1,14 @@
 export const surfaceOptions = [
     {
         label: 'Clay',
-        value: 'clay'
+        value: 'clay',
     },
     {
         label: 'Hard',
-        value: 'hard'
+        value: 'hard',
     },
     {
         label: 'Grass',
-        value: 'grass'
-    }
+        value: 'grass',
+    },
 ] as const
