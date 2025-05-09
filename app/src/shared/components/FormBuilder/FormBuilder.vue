@@ -1,100 +1,80 @@
 <template>
     <div class="form-builder">
-        <Form
-            v-slot="$form"
-            :form
-            :initialValues="form.model"
-            :resolver="resolver"
+        <AForm
+            :model="formState"
             class="flex flex-col gap-4 w-full"
-            @submit="submitRaw"
+            v-bind="props"
+            @finish="emits('form-submit', $event)"
         >
             <template v-for="item in form.schema">
                 <FormBuilderContainer
                     v-if="item.type === 'Container'"
                     :cols="item.fields.length"
                 >
-                    <template v-for="field in item.fields">
+                    <AFormItem
+                        v-for="field in item.fields"
+                        :name="field.field.model"
+                        :label="field.field.label"
+                    >
                         <slot
                             v-if="slots[field.field.model]"
-                            :error="
-                                $form[field.field.model]?.invalid
-                                    ? $form[field.field.model].error.message
-                                    : undefined
-                            "
                             :field="field.field"
-                            :name="field.field.model"
                         />
                         <FormField
                             v-else
-                            :error="
-                                $form[field.field.model]?.invalid
-                                    ? $form[field.field.model].error.message
-                                    : undefined
-                            "
+                            v-model="formState[field.field.model]"
                             :field="field.field"
                         />
-                    </template>
+                    </AFormItem>
                 </FormBuilderContainer>
 
-                <template v-else>
+                <AFormItem
+                    v-else
+                    :name="item.field.model"
+                    :label="item.field.label"
+                >
                     <slot
                         v-if="slots[item.field.model]"
-                        :error="
-                            $form[item.field.model]?.invalid
-                                ? $form[item.field.model].error.message
-                                : undefined
-                        "
                         :field="item.field"
-                        :name="item.field.model"
                     />
                     <FormField
                         v-else
-                        :error="
-                            $form[item.field.model]?.invalid
-                                ? $form[item.field.model].error.message
-                                : undefined
-                        "
+                        v-model="formState[item.field.model]"
                         :field="item.field"
                     />
-                </template>
+                </AFormItem>
             </template>
 
-            <Button
-                type="submit"
-                severity="secondary"
-                :loading="form.submit.loading?.value ?? false"
-                :label="form.submit.label"
-            />
-        </Form>
+            <AFormItem>
+                <AButton
+                    html-type="submit"
+                    :loading="form.submit.loading?.value ?? false"
+                >
+                    {{ form.submit.label }}
+                </AButton>
+            </AFormItem>
+        </AForm>
     </div>
 </template>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
-import { Form, type FormSubmitEvent, type FormProps } from '@primevue/forms'
 import FormField from './FormField.vue'
-
 import type { FormBuilderData } from './types'
 import FormBuilderContainer from './FormBuilderContainer.vue'
-import { useSlots } from 'vue'
+import { reactive, useSlots } from 'vue'
+import type { FormProps } from 'ant-design-vue'
 
 const slots = useSlots()
 
-defineProps<{
-    form: FormBuilderData<T>
-    resolver: FormProps['resolver']
-}>()
+type FormBuilderProps = { form: FormBuilderData<T> } & Omit<FormProps, 'model'>
+
+const { form, ..._props } = defineProps<FormBuilderProps>()
+const formState = reactive({ ...form.initialModel })
+const props = reactive(_props)
 
 const emits = defineEmits<{
-    'form-submit': [FormSubmitEvent<T>]
+    'form-submit': [T]
 }>()
-
-function submitRaw(e: FormSubmitEvent<Record<string, any>>) {
-    submit(e as FormSubmitEvent<T>)
-}
-
-function submit(payload: FormSubmitEvent<T>) {
-    emits('form-submit', payload)
-}
 </script>
 
 <style scoped lang="scss"></style>

@@ -1,56 +1,44 @@
 <template>
     <div class="form-field">
-        <TextInput
+        <AInput
             v-if="field.type === 'Text'"
-            :name="field.model"
-            :label="field.label"
-            :error="error"
+            v-model:value="model"
             v-bind="field.attrs"
         />
-        <PasswordInput
+        <AInputPassword
             v-if="field.type === 'Password'"
-            :name="field.model"
-            :label="field.label"
-            :error="error"
+            v-model:value="model"
             v-bind="field.attrs"
         />
-        <SelectInput
+        <ASelect
             v-if="field.type === 'Select'"
-            :name="field.model"
-            :label="field.label"
-            :error="error"
+            v-model:value="model"
             v-bind="field.attrs"
         />
-        <DatePickerInput
+        <ADatePicker
             v-if="field.type === 'DatePicker'"
-            :name="field.model"
-            :label="field.label"
-            :error="error"
+            v-model:value="model"
             v-bind="field.attrs"
         />
-        <FileUploadInput
+        <!-- <FileUploadInput
             v-if="field.type === 'FileUpload'"
             :name="field.model"
             :label="field.label"
             :error="error"
             v-bind="field.attrs"
-        />
-
+        /> -->
     </div>
 </template>
 
 <script setup lang="ts">
-import TextInput from '../controls/TextInput.vue'
-import PasswordInput from '../controls/PasswordInput.vue'
 import type { FormFields } from './types'
-import SelectInput from '../controls/SelectInput.vue'
-import DatePickerInput from '../controls/DatePickerInput.vue'
-import FileUploadInput from '../controls/FileUploadInput.vue'
 
 defineProps<{
     field: FormFields
     error?: string
 }>()
+
+const model = defineModel<any>()
 </script>
 
 <style scoped></style>

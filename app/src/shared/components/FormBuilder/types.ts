@@ -1,8 +1,10 @@
-import type { DatePickerProps, InputTextProps, PasswordProps, SelectProps, FileUploadProps } from 'primevue'
+import type { InputProps, SelectProps, DatePickerProps } from 'ant-design-vue'
+import type { Rule } from 'ant-design-vue/es/form'
+import type { FileUploadProps } from 'primevue'
 import type { Ref } from 'vue'
 
 export type FormBuilderData<M extends Record<string, unknown> = {}> = {
-    model: FormModel<M>
+    initialModel: FormModel<M>
     schema: FormSchema
     submit: FormSubmit
 }
@@ -25,15 +27,16 @@ type BaseFormFields<T extends Record<string, any> = {}> = {
     label: string
     model: string
     attrs?: T
+    rules?: Rule
 }
 
 export type FormFields = TextField | PasswordField | SelectField | DatePickerField | FileUploadField
 
-type TextField = BaseFormFields<InputTextProps> & {
+type TextField = BaseFormFields<InputProps> & {
     type: 'Text'
 }
 
-type PasswordField = BaseFormFields<PasswordProps> & {
+type PasswordField = BaseFormFields<InputProps> & {
     type: 'Password'
 }
 
