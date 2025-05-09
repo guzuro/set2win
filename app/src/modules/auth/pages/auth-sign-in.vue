@@ -3,8 +3,9 @@
         <ACard title="Sign in">
             <FormBuilder
                 :form="signInData"
-                :resolver="resolver"
-                @form-submit="onFormSubmit"
+                layout="vertical"
+                :rules="rules"
+                @form-submit="signIn"
             />
 
             <div class="mt-5 text-center">
@@ -23,14 +24,14 @@
 <script setup lang="ts">
 import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
 import type { SignInData } from '@/modules/auth/types/auth.types'
-import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
+import type { FormResolverOptions } from '@primevue/forms'
 import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 import useAuth from '../composables/useAuth'
 
-const { signIn, isLoading, validateLogin, validatePassword } = useAuth()
+const { signIn, isLoading, rules } = useAuth()
 
 const signInData: FormBuilderData<SignInData> = {
-    model: {
+    initialModel: {
         login: '',
         password: '',
     },
@@ -49,9 +50,6 @@ const signInData: FormBuilderData<SignInData> = {
                 type: 'Password',
                 label: 'Password',
                 model: 'password',
-                attrs: {
-                    fluid: true,
-                },
             },
         },
     ],
@@ -59,26 +57,6 @@ const signInData: FormBuilderData<SignInData> = {
         label: 'Sign in',
         loading: isLoading,
     },
-}
-
-function resolver({ values }: FormResolverOptions) {
-    const errors: Partial<Record<keyof SignInData, Array<{ message: string }>>> = {}
-
-    const { login, password } = values
-
-    errors.login = validateLogin(login)
-    errors.password = validatePassword(password)
-
-    return {
-        values,
-        errors,
-    }
-}
-
-function onFormSubmit(payload: FormSubmitEvent<SignInData>) {
-    if (payload.valid) {
-        signIn(payload.values)
-    }
 }
 </script>
 

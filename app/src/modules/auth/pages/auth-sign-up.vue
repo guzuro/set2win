@@ -3,8 +3,9 @@
         <ACard title="Sign up">
             <FormBuilder
                 :form="signUpData"
-                :resolver="resolver"
-                @form-submit="onFormSubmit"
+                layout="vertical"
+                :rules="rules"
+                @form-submit="signUp"
             />
 
             <div class="mt-5 text-center">
@@ -24,13 +25,13 @@
 import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
 import useAuth from '../composables/useAuth'
 import type { SignUpData } from '@/modules/auth/types/auth.types'
-import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
+import type { FormResolverOptions } from '@primevue/forms'
 import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 
-const { signUp, isLoading, validateLogin, validatePassword, validatePasswordConfirm } = useAuth()
+const { signUp, isLoading, rules } = useAuth()
 
 const signUpData: FormBuilderData<SignUpData> = {
-    model: defaultModel(),
+    initialModel: defaultModel(),
     schema: [
         {
             type: 'Simple',
@@ -46,9 +47,6 @@ const signUpData: FormBuilderData<SignUpData> = {
                 type: 'Password',
                 label: 'Password',
                 model: 'password',
-                attrs: {
-                    fluid: true,
-                },
             },
         },
         {
@@ -57,9 +55,6 @@ const signUpData: FormBuilderData<SignUpData> = {
                 type: 'Password',
                 label: 'Confirm password',
                 model: 'passwordConfirm',
-                attrs: {
-                    fluid: true,
-                },
             },
         },
     ],
@@ -74,27 +69,6 @@ function defaultModel(): SignUpData {
         login: '',
         password: '',
         passwordConfirm: '',
-    }
-}
-
-function resolver({ values }: FormResolverOptions) {
-    const errors: Partial<Record<keyof SignUpData, Array<{ message: string }>>> = {}
-
-    const { login, password, passwordConfirm } = values
-
-    errors.login = validateLogin(login)
-    errors.password = validatePassword(password)
-    errors.passwordConfirm = validatePasswordConfirm(password, passwordConfirm)
-
-    return {
-        values,
-        errors,
-    }
-}
-
-function onFormSubmit(payload: FormSubmitEvent<SignUpData>) {
-    if (payload.valid) {
-        signUp(payload.values)
     }
 }
 </script>

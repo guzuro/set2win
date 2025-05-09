@@ -3,6 +3,7 @@ import type { SignInData, SignUpData } from '@/modules/auth/types/auth.types'
 import { useApi } from '../../../shared/composables/useApi'
 import { AuthApi } from '../api/auth.api'
 import { useRouter } from 'vue-router'
+import type { Rule } from 'ant-design-vue/es/form'
 
 export default function useAuth() {
     const userStore = useUserStore()
@@ -37,40 +38,18 @@ export default function useAuth() {
         }
     }
 
-    function validateLogin(login: string) {
-        if (!login) {
-            return [{ message: 'Login is required.' }]
-        } else {
-            return []
-        }
-    }
-
-    function validatePassword(password: string) {
-        const passMinLen = 5
-
-        if (!password) {
-            return [{ message: 'Password is required.' }]
-        } else if (password.length < passMinLen) {
-            return [{ message: `Password must be minimum ${passMinLen} symbols` }]
-        } else {
-            return []
-        }
-    }
-
-    function validatePasswordConfirm(password: string, passwordConfirm: string) {
-        if (password !== passwordConfirm) {
-            return [{ message: 'Passwords are not equal.' }]
-        } else {
-            return []
-        }
+    const rules: Partial<Record<keyof SignUpData | keyof SignUpData, Array<Rule>>> = {
+        login: [{ required: true, message: 'Login is required!', trigger: 'blur' }],
+        password: [
+            { required: true, message: 'Password is required!', trigger: 'blur' },
+            { min: 5, message: 'Password must be minimum 5 symbols!', trigger: 'blur' },
+        ],
     }
 
     return {
         signIn,
         signUp,
         isLoading,
-        validateLogin,
-        validatePassword,
-        validatePasswordConfirm,
+        rules,
     }
 }
