@@ -1,9 +1,6 @@
 <template>
     <div class="create-player-form">
-        <FormBuilder
-            :form="createPlayerForm"
-            :resolver="createPlayer"
-        >
+        <FormBuilder :form="createPlayerForm">
             <template #country="{ field, error }">
                 <SelectInput
                     v-if="field.type === 'Select'"
@@ -60,7 +57,7 @@ import SelectInput from '@/shared/components/controls/SelectInput.vue'
 import { surfaceOptions } from '@/shared/includes/surfaceOptions'
 
 const createPlayerForm: FormBuilderData<any> = {
-    model: {
+    initialModel: {
         fullName: '',
         country: '',
         birthDate: '',
