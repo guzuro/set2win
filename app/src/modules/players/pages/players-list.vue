@@ -7,11 +7,9 @@
 
         <template v-else>
             <template v-if="list?.length">
-                <Card v-for="player in list">
-                    <template #content>
-                        {{ player }}
-                    </template>
-                </Card>
+                <ACard v-for="player in list">
+                    {{ player }}
+                </ACard>
             </template>
             <div
                 v-else
@@ -28,7 +26,7 @@
                     v-model:visible="drawerOpen"
                     title="Create player"
                     position="right"
-                    width="600px"
+                    :width="drawerWidth"
                 >
                     <CreatePlayerForm />
                 </ADrawer>
@@ -41,8 +39,10 @@
 import { onMounted, ref } from 'vue'
 import { usePlayers } from '../composables/usePlayers'
 import CreatePlayerForm from '../components/CreatePlayerForm.vue'
+import { useDrawer } from '../../../shared/composables/useDrawer'
 
 const { listLoading, getUserPlayers, list } = usePlayers()
+const { drawerWidth } = useDrawer()
 
 const drawerOpen = ref(false)
 
