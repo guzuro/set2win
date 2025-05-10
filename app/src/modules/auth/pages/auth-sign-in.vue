@@ -1,12 +1,36 @@
 <template>
     <div class="auth-sign-in">
         <ACard title="Sign in">
-            <FormBuilder
-                :form="signInData"
+            <AForm
+                :model="formState"
                 layout="vertical"
                 :rules="rules"
-                @form-submit="signIn"
-            />
+                ref="formRef"
+                @finish="signIn"
+            >
+                <AFormItem
+                    label="Login"
+                    name="login"
+                >
+                    <AInput v-model:value="formState.login" />
+                </AFormItem>
+
+                <AFormItem
+                    label="Password"
+                    name="password"
+                >
+                    <AInputPassword v-model:value="formState.password" />
+                </AFormItem>
+
+                <AFormItem>
+                    <AButton
+                        :loading="isLoading"
+                        html-type="submit"
+                    >
+                        Sign In
+                    </AButton>
+                </AFormItem>
+            </AForm>
 
             <div class="mt-5 text-center">
                 Dont have an account?
@@ -22,42 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
-import type { SignInData } from '@/modules/auth/types/auth.types'
-import type { FormResolverOptions } from '@primevue/forms'
-import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
 import useAuth from '../composables/useAuth'
+import type { FormInstance } from 'ant-design-vue/es/form'
+import { ref } from 'vue'
 
-const { signIn, isLoading, rules } = useAuth()
+const { signIn, isLoading, rules, getSignInModel } = useAuth()
+const formRef = ref<FormInstance>()
 
-const signInData: FormBuilderData<SignInData> = {
-    initialModel: {
-        login: '',
-        password: '',
-    },
-    schema: [
-        {
-            type: 'Simple',
-            field: {
-                type: 'Text',
-                label: 'Login',
-                model: 'login',
-            },
-        },
-        {
-            type: 'Simple',
-            field: {
-                type: 'Password',
-                label: 'Password',
-                model: 'password',
-            },
-        },
-    ],
-    submit: {
-        label: 'Sign in',
-        loading: isLoading,
-    },
-}
+const formState = getSignInModel()
 </script>
 
 <style></style>

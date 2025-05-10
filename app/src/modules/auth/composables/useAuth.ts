@@ -4,11 +4,26 @@ import { useApi } from '../../../shared/composables/useApi'
 import { AuthApi } from '../api/auth.api'
 import { useRouter } from 'vue-router'
 import type { Rule } from 'ant-design-vue/es/form'
+import { reactive } from 'vue'
 
 export default function useAuth() {
     const userStore = useUserStore()
     const { data, isLoading, resolve } = useApi()
     const { push } = useRouter()
+
+    const getSignUpModel = (): SignUpData => {
+        return reactive({
+            ...getSignInModel(),
+            passwordConfirm: '',
+        })
+    }
+
+    const getSignInModel = (): SignInData => {
+        return reactive({
+            login: '',
+            password: '',
+        })
+    }
 
     async function signIn(payload: SignInData) {
         try {
@@ -51,5 +66,7 @@ export default function useAuth() {
         signUp,
         isLoading,
         rules,
+        getSignUpModel,
+        getSignInModel,
     }
 }

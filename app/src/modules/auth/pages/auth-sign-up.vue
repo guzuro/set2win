@@ -1,12 +1,44 @@
 <template>
     <div class="auth-sign-up">
         <ACard title="Sign up">
-            <FormBuilder
-                :form="signUpData"
+            <AForm
+                :model="formState"
                 layout="vertical"
                 :rules="rules"
-                @form-submit="signUp"
-            />
+                ref="formRef"
+                @finish="signUp"
+            >
+                <AFormItem
+                    label="Login"
+                    name="login"
+                >
+                    <AInput v-model:value="formState.login" />
+                </AFormItem>
+
+                <AFormItem
+                    label="Password"
+                    name="password"
+                >
+                    <AInputPassword v-model:value="formState.password" />
+                </AFormItem>
+
+                <AFormItem
+                    label="Confirm password"
+                    name="passwordConfirm"
+                    :rules="confirmPasswordRules"
+                >
+                    <AInputPassword v-model:value="formState.passwordConfirm" />
+                </AFormItem>
+
+                <AFormItem>
+                    <AButton
+                        :loading="isLoading"
+                        html-type="submit"
+                    >
+                        Sign Up
+                    </AButton>
+                </AFormItem>
+            </AForm>
 
             <div class="mt-5 text-center">
                 Already have an account?
@@ -22,55 +54,31 @@
 </template>
 
 <script setup lang="ts">
-import type { FormBuilderData } from '@/shared/components/FormBuilder/types'
+import type { FormInstance, Rule } from 'ant-design-vue/es/form'
 import useAuth from '../composables/useAuth'
-import type { SignUpData } from '@/modules/auth/types/auth.types'
-import type { FormResolverOptions } from '@primevue/forms'
-import FormBuilder from '@/shared/components/FormBuilder/FormBuilder.vue'
+import { ref } from 'vue'
 
-const { signUp, isLoading, rules } = useAuth()
+const { signUp, isLoading, rules, getSignUpModel } = useAuth()
 
-const signUpData: FormBuilderData<SignUpData> = {
-    initialModel: defaultModel(),
-    schema: [
-        {
-            type: 'Simple',
-            field: {
-                type: 'Text',
-                label: 'Login',
-                model: 'login',
-            },
+const formRef = ref<FormInstance>()
+const formState = getSignUpModel()
+
+const confirmPasswordRules: Array<Rule> = [
+    ...(rules.password ?? []),
+    {
+        validator: (_, value) => {
+            const { password } =
+                (formRef.value?.getFieldsValue() as ReturnType<typeof getSignUpModel>) ?? {}
+
+            if (value !== password) {
+                return Promise.reject(new Error('Passwords do not match!'))
+            }
+
+            return Promise.resolve()
         },
-        {
-            type: 'Simple',
-            field: {
-                type: 'Password',
-                label: 'Password',
-                model: 'password',
-            },
-        },
-        {
-            type: 'Simple',
-            field: {
-                type: 'Password',
-                label: 'Confirm password',
-                model: 'passwordConfirm',
-            },
-        },
-    ],
-    submit: {
-        label: 'Sign up',
-        loading: isLoading,
+        trigger: 'blur',
     },
-}
-
-function defaultModel(): SignUpData {
-    return {
-        login: '',
-        password: '',
-        passwordConfirm: '',
-    }
-}
+]
 </script>
 
 <style scoped></style>
