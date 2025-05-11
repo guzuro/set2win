@@ -77,8 +77,12 @@
                 >
                     <ASegmented
                         v-model:value="formState.hand"
-                        :options="['Left', 'Right']"
-                    />
+                        :options="handOptions"
+                    >
+                        <template #label="{ value }">
+                            <span class="capitalize">{{ value }}</span>
+                        </template>
+                    </ASegmented>
                 </AFormItem>
             </div>
 
@@ -114,11 +118,12 @@
 
 <script setup lang="ts">
 import { countries } from '@/shared/includes/countries'
-import { surfaceOptions } from '@/shared/includes/surfaceOptions'
+import { surfaceOptions } from '@/shared/courtSurface/surfaceOptions'
 import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import { ref, watch } from 'vue'
 import type { UploadFile } from 'ant-design-vue'
+import { handOptions } from '../includes/handOptions'
 
 const { getRawPlayerModel } = usePlayers()
 
