@@ -23,7 +23,7 @@
                 </AButton>
 
                 <ADrawer
-                    v-model:visible="drawerOpen"
+                    v-model:open="drawerOpen"
                     title="Create player"
                     position="right"
                     :width="drawerWidth"
