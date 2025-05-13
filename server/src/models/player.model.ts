@@ -1,7 +1,6 @@
 import { t } from 'elysia'
 
 export const newPlayerSchema = t.Object({
-    userId: t.String(),
     fullName: t.String(),
     country: t.String(),
     birthDate: t.String(),
@@ -17,4 +16,8 @@ export const newPlayerSchema = t.Object({
     avatarUrl: t.Optional(t.String()),
 })
 
-export type RawPlayerDto = typeof newPlayerSchema.static
+export type PlayerCreateReq = typeof newPlayerSchema.static
+
+export type CreatePlayerDto = PlayerCreateReq & {
+    userId: string
+}

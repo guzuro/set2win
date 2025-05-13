@@ -8,7 +8,19 @@ type Player = {
 }
 
 export function usePlayers() {
-    let { data: list, isLoading: listLoading, error, resolve } = useApi<Player[]>()
+    const {
+        data: list,
+        isLoading: listLoading,
+        error: listError,
+        resolve: resolveList,
+    } = useApi<{ players: Player[] }>()
+
+    const {
+        data: createData,
+        isLoading: playerCreating,
+        error: createError,
+        resolve: resolveCreate,
+    } = useApi<{ players: Player[] }>()
 
     const getRawPlayerModel = () => {
         return reactive<CreatePlayerDto>({
@@ -17,15 +29,27 @@ export function usePlayers() {
             birthDate: '',
             hand: 'right',
             favoriteSurface: 'clay',
-            avatar: null,
+            avatarUrl: null,
         })
     }
 
     async function getUserPlayers() {
-        await resolve(() => PlayersApi.getUserPlayers())
+        await resolveList(() => PlayersApi.getUserPlayers())
 
-        if (error) {
-            list.value = []
+        if (listError.value) {
+            list.value = {
+                players: [],
+            }
+        }
+
+        console.log(list.value)
+    }
+
+    async function createPlayer(player: CreatePlayerDto) {
+        await resolveCreate(() => PlayersApi.createPlayer(player))
+
+        if (createData.value && list.value) {
+            list.value.players = createData.value.players
         }
     }
 
@@ -34,5 +58,7 @@ export function usePlayers() {
         list,
         listLoading,
         getRawPlayerModel,
+        createPlayer,
+        playerCreating,
     }
 }

@@ -1,7 +1,7 @@
 import Elysia, { error } from 'elysia'
 import { playersService } from '../services/players.service'
 import PgException from '../exceptions/PgException'
-import { newPlayerSchema } from '../models/player.model'
+import { CreatePlayerDto, newPlayerSchema } from '../models/player.model'
 
 const playersRoutes = new Elysia().group('players', (app) =>
     app
@@ -10,7 +10,9 @@ const playersRoutes = new Elysia().group('players', (app) =>
                 const userId = cookie?.userId?.value
 
                 if (userId) {
-                    return await playersService.getUserPlayers(userId)
+                    return {
+                        players: await playersService.getUserPlayers(userId),
+                    }
                 }
             } catch (e) {
                 if (e instanceof PgException) {
@@ -22,9 +24,22 @@ const playersRoutes = new Elysia().group('players', (app) =>
         })
         .post(
             '/',
-            async ({ body }) => {
+            async ({ body, cookie: { userId } }) => {
                 try {
-                    return await playersService.addPlayer(body)
+                    if (!userId.value) {
+                        return error(401)
+                    }
+
+                    const playerDto: CreatePlayerDto = {
+                        ...body,
+                        userId: userId.value,
+                    }
+
+                    await playersService.addPlayer(playerDto)
+
+                    return {
+                        players: await playersService.getUserPlayers(userId.value),
+                    }
                 } catch (e) {
                     if (e instanceof PgException) {
                         return error(e.status, e.message)
