@@ -3,6 +3,7 @@
         <AForm
             :model="formState"
             layout="vertical"
+            @finish="handleForm"
         >
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                 <AFormItem
@@ -77,14 +78,14 @@
                 >
                     <ASegmented
                         v-model:value="formState.hand"
-                        :options="['Left', 'Right']"
+                        :options="['left', 'right']"
                     />
                 </AFormItem>
             </div>
 
             <AFormItem
                 label="Avatar"
-                name="avatar"
+                name="avatarUrl"
             >
                 <AUpload
                     :multiple="false"
@@ -93,8 +94,9 @@
                     action="http://localhost:3000/api/upload/avatar"
                     with-credentials
                     v-model:file-list="avatarFileList"
+                    @change="handleChange"
                 >
-                    <AButton v-if="!formState.avatar">
+                    <AButton v-if="!formState.avatarUrl">
                         <UploadOutlined></UploadOutlined>
                         Choose avatar
                     </AButton>
@@ -115,11 +117,16 @@
 
 <script setup lang="ts">
 import { countries } from '@/shared/includes/countries'
-import { surfaceOptions } from '@/shared/includes/surfaceOptions'
+import { surfaceOptions } from '@/shared/surface/surfaceOptions'
 import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
-import { ref, watch } from 'vue'
-import type { UploadFile } from 'ant-design-vue'
+import { ref } from 'vue'
+import type { UploadChangeParam, UploadFile } from 'ant-design-vue'
+import type { CreatePlayerDto } from '../types'
+
+const emits = defineEmits<{
+    submit: [CreatePlayerDto]
+}>()
 
 const { getRawPlayerModel } = usePlayers()
 
@@ -129,13 +136,17 @@ const countriesList = Object.entries(countries).map(([k, v]) => ({ label: v, val
 
 const avatarFileList = ref<Array<UploadFile>>([])
 
-watch(avatarFileList, (v) => {
-    if (v.length) {
-        formState.avatar = v[0]
-    } else {
-        formState.avatar = null
+const handleChange = (info: UploadChangeParam) => {
+    const status = info.file.status
+
+    if (status === 'done' && info.file.response?.url) {
+        formState.avatarUrl = info.file.response.url
     }
-})
+}
+
+const handleForm = (values: CreatePlayerDto) => {
+    emits('submit', values)
+}
 </script>
 
 <style scoped></style>
