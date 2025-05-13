@@ -90,13 +90,14 @@
                     :multiple="false"
                     list-type="picture"
                     :max-count="1"
-                    :before-upload="() => false"
+                    action="http://localhost:3000/api/upload/avatar"
+                    with-credentials
                     v-model:file-list="avatarFileList"
                 >
-                    <a-button v-if="!formState.avatar">
+                    <AButton v-if="!formState.avatar">
                         <UploadOutlined></UploadOutlined>
                         Choose avatar
-                    </a-button>
+                    </AButton>
                 </AUpload>
             </AFormItem>
 
