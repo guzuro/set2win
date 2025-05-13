@@ -6,11 +6,10 @@ class UserService {
             const [user] = await userRepository.getUserById(id)
 
             if (user) {
-                const {password, ...userFields} = user
-                
+                const { password, ...userFields } = user
+
                 return userFields
             }
-
         } catch (error) {
             throw error
         }

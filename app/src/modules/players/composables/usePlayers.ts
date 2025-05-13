@@ -7,7 +7,7 @@ type Player = {
 }
 
 export function usePlayers() {
-    let { data: list, isLoading: listLoading, error, resolve } = useApi<Player[]>()
+    const { data: list, isLoading: listLoading, error, resolve } = useApi<Player[]>()
 
     const getRawPlayerModel = () => {
         return reactive({
@@ -32,6 +32,6 @@ export function usePlayers() {
         getUserPlayers,
         list,
         listLoading,
-        getRawPlayerModel
+        getRawPlayerModel,
     }
 }
