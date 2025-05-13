@@ -8,7 +8,7 @@ const AVATAR_DIR = path.join('static', 'avatars')
 const AVATAR_PUBLIC_URL = '/uploads/avatars'
 
 const staticRoutes = new Elysia().group('upload', (app) =>
-    app.post('/avatar', async ({ request }) => {
+    app.post('/avatar', async ({ request, cookie }) => {
         try {
             const fd = await request.formData()
             const file = fd.get('file') as File | undefined
