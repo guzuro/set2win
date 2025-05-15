@@ -4,8 +4,8 @@ import { writeFile } from 'fs/promises'
 import path from 'path'
 import { isImage } from '../../utils/isImage'
 
-const AVATAR_DIR = path.join('static', 'avatars')
-const AVATAR_PUBLIC_URL = '/uploads/avatars'
+const AVATAR_DIR = path.join('public', 'static', 'avatars')
+const AVATAR_PUBLIC_URL = '/public/static/avatars'
 
 const staticRoutes = new Elysia().group('upload', (app) =>
     app.post('/avatar', async ({ request, cookie }) => {
@@ -32,7 +32,7 @@ const staticRoutes = new Elysia().group('upload', (app) =>
         } catch (e) {
             return error(500, e instanceof Error ? e.message : 'Internal server error')
         }
-    }),
+    })
 )
 
 export default staticRoutes
