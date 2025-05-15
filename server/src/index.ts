@@ -7,11 +7,12 @@ import playersRoutes from './routes/players.route'
 import { staticPlugin } from '@elysiajs/static'
 import staticRoutes from './routes/static.route'
 
-const app = new Elysia({ adapter: node() })
+const app = new Elysia()
     .use(cors())
     .use(
         staticPlugin({
-            assets: 'static',
+            prefix: '/static',
+            assets: 'public/static',
         }),
     )
     .group('/api', (app) =>
