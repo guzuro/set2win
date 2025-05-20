@@ -2,6 +2,7 @@ import { useApi } from '@/shared/composables/useApi'
 import { PlayersApi } from '../api'
 import { reactive } from 'vue'
 import type { CreatePlayerDto, RawPlayer } from '../types'
+import { message } from 'ant-design-vue'
 
 export function usePlayers() {
     const {
@@ -21,7 +22,7 @@ export function usePlayers() {
     const getRawPlayerModel = () => {
         return reactive<CreatePlayerDto>({
             fullName: '',
-sex: 'men',
+            sex: 'men',
             country: '',
             birthDate: '',
             hand: 'right',
@@ -38,14 +39,20 @@ sex: 'men',
                 players: [],
             }
         }
-
-        console.log(list.value)
     }
 
     async function createPlayer(player: CreatePlayerDto) {
+        const key = 'create'
+
+        message.loading({ content: 'Creating...', key })
+
         await resolveCreate(() => PlayersApi.createPlayer(player))
 
         if (createData.value && list.value) {
+            message.success({ content: 'Success!', key })
+
+            console.log(createData.value)
+
             list.value.players = createData.value.players
         }
     }
@@ -56,6 +63,7 @@ sex: 'men',
         listLoading,
         getRawPlayerModel,
         createPlayer,
+        createError,
         playerCreating,
     }
 }
