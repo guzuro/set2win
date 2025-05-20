@@ -13,6 +13,32 @@
                     <AInput v-model:value="formState.fullName" />
                 </AFormItem>
                 <AFormItem
+                    label="Sex"
+                    name="sex"
+                >
+                    <ASegmented
+                        v-model:value="formState.sex"
+                        :options="sexOptions"
+                    >
+                        <template #label="{ value }">
+                            <span class="capitalize">{{ value }}</span>
+                        </template>
+                    </ASegmented>
+                </AFormItem>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5">
+                <AFormItem
+                    label="Birth date"
+                    name="birthDate"
+                >
+                    <ADatePicker
+                        v-model:value="formState.birthDate"
+                        class="w-full"
+                    />
+                </AFormItem>
+
+                <AFormItem
                     label="Country"
                     name="country"
                 >
@@ -34,15 +60,6 @@
                     </ASelect>
                 </AFormItem>
             </div>
-            <AFormItem
-                label="Birth date"
-                name="birthDate"
-            >
-                <ADatePicker
-                    v-model:value="formState.birthDate"
-                    class="w-full"
-                />
-            </AFormItem>
 
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                 <AFormItem
@@ -126,7 +143,7 @@ import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
 import type { UploadChangeParam, UploadFile } from 'ant-design-vue'
-import { handOptions } from '../includes/handOptions'
+import { handOptions, sexOptions } from '../includes/handOptions'
 import type { CreatePlayerDto } from '../types'
 import { getCountryImage } from '../../../shared/includes/countries/logic'
 
@@ -153,6 +170,15 @@ const handleChange = (info: UploadChangeParam) => {
 const handleForm = (values: CreatePlayerDto) => {
     emits('submit', values)
 }
+
+const resetForm = () => {
+    Object.assign(formState, getRawPlayerModel())
+    avatarFileList.value = []
+}
+
+defineExpose({
+    resetForm,
+})
 </script>
 
 <style scoped></style>

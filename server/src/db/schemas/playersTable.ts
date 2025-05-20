@@ -1,8 +1,9 @@
 import { pgTable, uuid, text, date, integer, timestamp, pgEnum } from 'drizzle-orm/pg-core'
-import { usersTable } from './userTable' // если ты уже завёл таблицу пользователей
+import { usersTable } from './userTable'
 
 export const handEnum = pgEnum('hand', ['right', 'left'])
 export const surfaceEnum = pgEnum('surface', ['clay', 'grass', 'hard'])
+export const sexEnum = pgEnum('sex', ['men', 'women'])
 
 export const playersTable = pgTable('players', {
     id: uuid('id').primaryKey().defaultRandom(),
@@ -12,11 +13,12 @@ export const playersTable = pgTable('players', {
         .notNull(),
 
     fullName: text('full_name').notNull(),
+    sex: sexEnum('sex').notNull(),
     country: text('country').notNull(),
     birthDate: date('birth_date').notNull(),
     rating: integer('rating').notNull().default(100),
 
-    hand: handEnum('handedness').notNull(),
+    hand: handEnum('hand').notNull(),
     favoriteSurface: surfaceEnum('favorite_surface').notNull(),
 
     avatarUrl: text('avatar_url'),

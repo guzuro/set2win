@@ -17,6 +17,14 @@
 
         <div :style="{ padding: `${token.padding}px` }">
             <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                <ManOutlined
+                    v-if="player.sex === 'men'"
+                    class="text-blue-400"
+                />
+                <WomanOutlined
+                    v-else
+                    class="text-pink-400"
+                />
                 {{ player.fullName }}
             </h3>
             <div class="flex items-center gap-2 text-sm text-gray-600">
@@ -39,6 +47,7 @@
 
 <script setup lang="ts">
 import { theme } from 'ant-design-vue'
+import { ManOutlined, WomanOutlined } from '@ant-design/icons-vue'
 import type { RawPlayer } from '../types'
 import { countries } from '../../../shared/includes/countries/countries'
 import { getCountryImage } from '../../../shared/includes/countries/logic'
