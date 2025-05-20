@@ -1,4 +1,4 @@
-export const countries = {
+export const countries: Record<string, string> = {
     AF: 'Afghanistan',
     AL: 'Albania',
     DZ: 'Algeria',
