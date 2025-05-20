@@ -1,14 +1,14 @@
 import { eq } from 'drizzle-orm'
 import { db } from '../db'
 import { playersTable } from '../db/schemas'
-import { CreatePlayerDto } from '../models/player.model'
+import { PlayerCreateDto } from '../models/player.model'
 
 class PlayersRepository {
     async getUserPlayers(userId: string) {
         return await db.select().from(playersTable).where(eq(playersTable.userId, userId))
     }
 
-    async addPlayer(payload: CreatePlayerDto) {
+    async addPlayer(payload: PlayerCreateDto) {
         return await db.insert(playersTable).values(payload)
     }
 
