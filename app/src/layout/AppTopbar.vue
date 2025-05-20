@@ -29,7 +29,7 @@ const { toggleSidebar, needRenderSidebar } = useLayout()
 
 <style scoped lang="scss">
 .app-topbar {
-    @apply fixed top-0 bg-white p-4 left-0 right-0 h-20;
+    @apply fixed top-0 bg-white p-4 left-0 right-0 h-20 z-50;
 
     &-inner {
         @apply px-3 md:px-10 h-full gap-2 flex items-center;
