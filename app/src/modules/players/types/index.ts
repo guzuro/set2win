@@ -10,3 +10,17 @@ export type CreatePlayerDto = {
     hand: PlayerHand
     favoriteSurface: SurfaceType
 }
+
+export type RawPlayer = {
+    hand: PlayerHand
+    id: string
+    userId: string
+    fullName: string
+    country: string
+    birthDate: string
+    rating: number
+    favoriteSurface: SurfaceType
+    avatarUrl: string | null
+    createdAt: Date
+    updatedAt: Date
+}

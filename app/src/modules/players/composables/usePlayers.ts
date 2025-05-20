@@ -1,11 +1,7 @@
 import { useApi } from '@/shared/composables/useApi'
 import { PlayersApi } from '../api'
 import { reactive } from 'vue'
-import type { CreatePlayerDto } from '../types'
-
-type Player = {
-    field: string
-}
+import type { CreatePlayerDto, RawPlayer } from '../types'
 
 export function usePlayers() {
     const {
@@ -13,14 +9,14 @@ export function usePlayers() {
         isLoading: listLoading,
         error: listError,
         resolve: resolveList,
-    } = useApi<{ players: Player[] }>()
+    } = useApi<{ players: RawPlayer[] }>()
 
     const {
         data: createData,
         isLoading: playerCreating,
         error: createError,
         resolve: resolveCreate,
-    } = useApi<{ players: Player[] }>()
+    } = useApi<{ players: RawPlayer[] }>()
 
     const getRawPlayerModel = () => {
         return reactive<CreatePlayerDto>({

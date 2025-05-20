@@ -6,11 +6,19 @@
         />
 
         <template v-else>
-            <template v-if="list?.players?.length">
-                <ACard v-for="player in list.players">
-                    {{ player }}
-                </ACard>
-            </template>
+            <ARow
+                v-if="list?.players?.length"
+                :gutter="[16, 16]"
+            >
+                <ACol
+                    v-for="player in list.players"
+                    :xs="24"
+                    :xl="12"
+                    :xxl="8"
+                >
+                    <PlayerCard :player="player"/>
+                </ACol>
+            </ARow>
             <div
                 v-else
                 class="text-center"
@@ -42,6 +50,8 @@ import { onMounted, ref } from 'vue'
 import { usePlayers } from '../composables/usePlayers'
 import CreatePlayerForm from '../components/CreatePlayerForm.vue'
 import { useDrawer } from '../../../shared/composables/useDrawer'
+import ARow from 'ant-design-vue/es/grid/Row'
+import PlayerCard from '../components/PlayerCard.vue'
 
 const { listLoading, getUserPlayers, list, createPlayer, playerCreating } = usePlayers()
 const { drawerWidth } = useDrawer()
