@@ -1,4 +1,4 @@
-import type { SurfaceType } from '@/shared/surface/types'
+import type { SurfaceType } from '@/shared/includes/surface/types'
 
 export type PlayerHand = 'left' | 'right'
 

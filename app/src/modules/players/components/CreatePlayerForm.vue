@@ -121,7 +121,7 @@
 
 <script setup lang="ts">
 import { countries } from '@/shared/includes/countries/countries'
-import { surfaceOptions } from '@/shared/surface/surfaceOptions'
+import { surfaceOptions } from '@/shared/includes/surface/surfaceOptions'
 import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
