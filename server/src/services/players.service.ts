@@ -1,5 +1,5 @@
 import PgException from '../exceptions/PgException'
-import { CreatePlayerDto } from '../models/player.model'
+import { PlayerCreateDto } from '../models/player.model'
 import { playersRepository } from '../repositiry/players.repository'
 
 class PlayersService {
@@ -11,7 +11,7 @@ class PlayersService {
         }
     }
 
-    async addPlayer(player: CreatePlayerDto) {
+    async addPlayer(player: PlayerCreateDto) {
         try {
             return await playersRepository.addPlayer(player)
         } catch (error) {

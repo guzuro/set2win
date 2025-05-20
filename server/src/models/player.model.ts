@@ -18,6 +18,6 @@ export const newPlayerSchema = t.Object({
 
 export type PlayerCreateReq = typeof newPlayerSchema.static
 
-export type CreatePlayerDto = PlayerCreateReq & {
+export type PlayerCreateDto = PlayerCreateReq & {
     userId: string
 }

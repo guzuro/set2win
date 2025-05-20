@@ -1,7 +1,7 @@
 import Elysia, { error } from 'elysia'
 import { playersService } from '../services/players.service'
 import PgException from '../exceptions/PgException'
-import { CreatePlayerDto, newPlayerSchema } from '../models/player.model'
+import { PlayerCreateDto, newPlayerSchema } from '../models/player.model'
 
 const playersRoutes = new Elysia().group('players', (app) =>
     app
@@ -30,7 +30,7 @@ const playersRoutes = new Elysia().group('players', (app) =>
                         return error(401)
                     }
 
-                    const playerDto: CreatePlayerDto = {
+                    const playerDto: PlayerCreateDto = {
                         ...body,
                         userId: userId.value,
                     }
