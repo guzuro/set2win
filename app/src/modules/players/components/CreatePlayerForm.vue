@@ -26,8 +26,8 @@
                             :label="o.label"
                         >
                             <img
-                                class="inline-block w-5 h-5 rounded-full align-text-bottom mr-2"
-                                :src="`https://flags.fmcdn.net/data/flags/mini/${o.value.toLowerCase()}.png`"
+                                class="inline-block w-6 h-4 rounded-xs align-text-bottom mr-2"
+                                :src="getCountryImage(o.value)"
                             />
                             <span>{{ o.label }}</span>
                         </ASelectOption>
@@ -59,7 +59,7 @@
                             :label="o.label"
                         >
                             <span
-                                class="inline-block w-5 h-5 rounded-full align-text-bottom mr-2"
+                                class="inline-block w-6 h-4 rounded-xs align-text-bottom mr-2"
                                 role="img"
                                 :aria-label="o.label"
                                 :class="{
@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { countries } from '@/shared/includes/countries'
+import { countries } from '@/shared/includes/countries/countries'
 import { surfaceOptions } from '@/shared/surface/surfaceOptions'
 import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
@@ -128,6 +128,7 @@ import { ref } from 'vue'
 import type { UploadChangeParam, UploadFile } from 'ant-design-vue'
 import { handOptions } from '../includes/handOptions'
 import type { CreatePlayerDto } from '../types'
+import { getCountryImage } from '../../../shared/includes/countries/logic'
 
 const emits = defineEmits<{
     submit: [CreatePlayerDto]

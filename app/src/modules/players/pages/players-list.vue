@@ -1,5 +1,19 @@
 <template>
     <div class="players-list">
+        <APageHeader
+            title="Your players"
+            class="pt-0"
+        >
+            <template #extra>
+                <AButton
+                    type="primary"
+                    @click="drawerOpen = !drawerOpen"
+                >
+                    Add player
+                </AButton>
+            </template>
+        </APageHeader>
+
         <ASpin
             v-if="listLoading"
             class="players-list-spinner !w-10 !h-10"
@@ -16,7 +30,7 @@
                     :xl="12"
                     :xxl="8"
                 >
-                    <PlayerCard :player="player"/>
+                    <PlayerCard :player="player" />
                 </ACol>
             </ARow>
             <div
@@ -29,19 +43,19 @@
                 >
                     Create your first player!
                 </AButton>
-
-                <ADrawer
-                    v-model:open="drawerOpen"
-                    title="Create player"
-                    position="right"
-                    :width="drawerWidth"
-                >
-                    <ASpin :spinning="playerCreating">
-                        <CreatePlayerForm @submit="createPlayer" />
-                    </ASpin>
-                </ADrawer>
             </div>
         </template>
+
+        <ADrawer
+            v-model:open="drawerOpen"
+            title="Create player"
+            position="right"
+            :width="drawerWidth"
+        >
+            <ASpin :spinning="playerCreating">
+                <CreatePlayerForm @submit="createPlayer" />
+            </ASpin>
+        </ADrawer>
     </div>
 </template>
 
