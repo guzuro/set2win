@@ -1,20 +1,18 @@
 import type { SurfaceType } from '@/shared/includes/surface/types'
 
 export type PlayerHand = 'left' | 'right'
+export type PlayerSex = 'men' | 'women'
 
-export type CreatePlayerDto = {
-    avatarUrl: string | null
-    fullName: string
-    country: string
-    birthDate: string
-    hand: PlayerHand
-    favoriteSurface: SurfaceType
-}
+export type CreatePlayerDto = Pick<
+    RawPlayer,
+    'avatarUrl' | 'fullName' | 'sex' | 'country' | 'birthDate' | 'hand' | 'favoriteSurface'
+>
 
 export type RawPlayer = {
     hand: PlayerHand
     id: string
     userId: string
+    sex: PlayerSex
     fullName: string
     country: string
     birthDate: string

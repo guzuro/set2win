@@ -1,8 +1,8 @@
-import { ref, shallowRef } from 'vue'
+import { ref } from 'vue'
 
 export function useApi<T = any>() {
     const isLoading = ref(false)
-    const data = shallowRef<T | null>()
+    const data = ref<T | null>()
     const error = ref<Error | null>(null)
 
     async function resolve(reqFn: () => Promise<any>) {

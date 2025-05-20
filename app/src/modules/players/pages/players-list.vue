@@ -4,7 +4,10 @@
             title="Your players"
             class="pt-0"
         >
-            <template #extra>
+            <template
+                #extra
+                v-if="list?.players.length"
+            >
                 <AButton
                     type="primary"
                     @click="drawerOpen = !drawerOpen"
@@ -27,7 +30,7 @@
                 <ACol
                     v-for="player in list.players"
                     :xs="24"
-                    :xl="12"
+                    :md="12"
                     :xxl="8"
                 >
                     <PlayerCard :player="player" />
@@ -53,7 +56,10 @@
             :width="drawerWidth"
         >
             <ASpin :spinning="playerCreating">
-                <CreatePlayerForm @submit="createPlayer" />
+                <CreatePlayerForm
+                    ref="formRef"
+                    @submit="submitForm"
+                />
             </ASpin>
         </ADrawer>
     </div>
@@ -66,11 +72,26 @@ import CreatePlayerForm from '../components/CreatePlayerForm.vue'
 import { useDrawer } from '../../../shared/composables/useDrawer'
 import ARow from 'ant-design-vue/es/grid/Row'
 import PlayerCard from '../components/PlayerCard.vue'
-
-const { listLoading, getUserPlayers, list, createPlayer, playerCreating } = usePlayers()
-const { drawerWidth } = useDrawer()
+import { templateRef } from '@vueuse/core'
+import type { CreatePlayerDto } from '../types'
 
 const drawerOpen = ref(false)
+
+const { listLoading, getUserPlayers, list, createPlayer, createError, playerCreating } =
+    usePlayers()
+const { drawerWidth } = useDrawer()
+
+const formRef = templateRef('formRef')
+
+const submitForm = async (player: CreatePlayerDto) => {
+    await createPlayer(player)
+
+    if (!createError.value) {
+        formRef.value?.resetForm()
+
+        drawerOpen.value = false
+    }
+}
 
 onMounted(() => {
     getUserPlayers()

@@ -143,7 +143,7 @@ import { usePlayers } from '../composables/usePlayers'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
 import type { UploadChangeParam, UploadFile } from 'ant-design-vue'
-import { handOptions, sexOptions } from '../includes/handOptions'
+import { handOptions, sexOptions } from '../includes/options'
 import type { CreatePlayerDto } from '../types'
 import { getCountryImage } from '../../../shared/includes/countries/logic'
 
