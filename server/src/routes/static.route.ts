@@ -5,7 +5,7 @@ import path from 'path'
 import { isImage } from '../../utils/isImage'
 
 const AVATAR_DIR = path.join('public', 'static', 'avatars')
-const AVATAR_PUBLIC_URL = '/public/static/avatars'
+const AVATAR_PUBLIC_URL = 'static/avatars'
 
 const staticRoutes = new Elysia().group('upload', (app) =>
     app.post('/avatar', async ({ request, cookie }) => {
