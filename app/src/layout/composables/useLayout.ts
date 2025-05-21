@@ -1,9 +1,11 @@
 import { computed, onMounted, onUnmounted, reactive } from 'vue'
 import { useUserStore } from '@/modules/user/store/userStore'
 
+const MD_BREAKPOINT = 768
+
 const layoutState = reactive({
-    sidebarVisible: true,
-    mobileSidebar: window.innerWidth < 768,
+    sidebarVisible: window.innerWidth > MD_BREAKPOINT,
+    mobileSidebar: window.innerWidth < MD_BREAKPOINT,
 })
 
 export function useLayout() {
@@ -12,7 +14,7 @@ export function useLayout() {
     function toggleSidebar() {
         layoutState.sidebarVisible = !layoutState.sidebarVisible
 
-        layoutState.mobileSidebar = window.innerWidth < 768
+        layoutState.mobileSidebar = window.innerWidth < MD_BREAKPOINT
     }
 
     const needRenderSidebar = computed(() => userStore.isAuthenticated)
@@ -20,7 +22,7 @@ export function useLayout() {
     const isSidebarActive = computed(() => layoutState.sidebarVisible && needRenderSidebar.value)
 
     const handleResize = () => {
-        const isMobile = window.innerWidth < 768
+        const isMobile = window.innerWidth < MD_BREAKPOINT
 
         if (isMobile && layoutState.sidebarVisible && !layoutState.mobileSidebar) {
             layoutState.sidebarVisible = false
