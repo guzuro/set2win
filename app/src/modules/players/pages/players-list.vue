@@ -85,7 +85,7 @@ const formRef = templateRef('formRef')
 
 const submitForm = async (player: CreatePlayerDto) => {
     await createPlayer(player)
-
+    
     if (!createError.value) {
         formRef.value?.resetForm()
 

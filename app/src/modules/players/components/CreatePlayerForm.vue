@@ -35,6 +35,7 @@
                     <ADatePicker
                         v-model:value="formState.birthDate"
                         class="w-full"
+                        :disabled-date="disabledDate"
                     />
                 </AFormItem>
 
@@ -146,6 +147,7 @@ import type { UploadChangeParam, UploadFile } from 'ant-design-vue'
 import { handOptions, sexOptions } from '../includes/options'
 import type { CreatePlayerDto } from '../types'
 import { getCountryImage } from '../../../shared/includes/countries/logic'
+import dayjs, { Dayjs } from 'dayjs'
 
 const emits = defineEmits<{
     submit: [CreatePlayerDto]
@@ -179,6 +181,10 @@ const resetForm = () => {
 defineExpose({
     resetForm,
 })
+
+const disabledDate = (current: Dayjs) => {
+    return current && current > dayjs().endOf('day')
+}
 </script>
 
 <style scoped></style>

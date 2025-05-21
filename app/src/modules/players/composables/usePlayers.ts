@@ -51,8 +51,6 @@ export function usePlayers() {
         if (createData.value && list.value) {
             message.success({ content: 'Success!', key })
 
-            console.log(createData.value)
-
             list.value.players = createData.value.players
         }
     }
