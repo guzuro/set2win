@@ -12,8 +12,8 @@ export function useApi<T = any>() {
 
         try {
             data.value = await reqFn()
-        } catch (error: any) {
-            error.value = error
+        } catch (err: any) {
+            error.value = err
         } finally {
             isLoading.value = false
         }
