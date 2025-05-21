@@ -22,10 +22,12 @@ export function useLayout() {
     const handleResize = () => {
         const isMobile = window.innerWidth < 768
 
-        if (isMobile) {
-            if (layoutState.sidebarVisible) toggleSidebar()
-        } else {
-            if (!layoutState.sidebarVisible) toggleSidebar()
+        if (isMobile && layoutState.sidebarVisible && !layoutState.mobileSidebar) {
+            layoutState.sidebarVisible = false
+        }
+
+        if (!isMobile && layoutState.mobileSidebar) {
+            layoutState.sidebarVisible = true
         }
 
         layoutState.mobileSidebar = isMobile
