@@ -1,13 +1,16 @@
 import { Elysia, error } from 'elysia'
-import { node } from '@elysiajs/node'
 import authRoutes from './routes/auth.route'
 import { cors } from '@elysiajs/cors'
 import userRoutes from './routes/user.route'
 import playersRoutes from './routes/players.route'
 import { staticPlugin } from '@elysiajs/static'
 import staticRoutes from './routes/static.route'
+import { seedInitialData } from './db/seed'
 
 const app = new Elysia()
+    .onStart(() => {
+        seedInitialData().catch(console.error)
+    })
     .use(cors())
     .use(
         staticPlugin({
