@@ -1,9 +1,6 @@
 import { pgTable, uuid, text, date, integer, timestamp, pgEnum } from 'drizzle-orm/pg-core'
-import { usersTable } from './userTable'
+import { handEnum, sexEnum, surfaceEnum, usersTable } from '.'
 
-export const handEnum = pgEnum('hand', ['right', 'left'])
-export const surfaceEnum = pgEnum('surface', ['clay', 'grass', 'hard'])
-export const sexEnum = pgEnum('sex', ['men', 'women'])
 
 export const playersTable = pgTable('players', {
     id: uuid('id').primaryKey().defaultRandom(),
