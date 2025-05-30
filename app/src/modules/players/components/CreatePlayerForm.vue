@@ -3,6 +3,7 @@
         <AForm
             :model="formState"
             layout="vertical"
+            :rules="createFormValidationRules"
             @finish="handleForm"
         >
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5">
@@ -153,8 +154,7 @@ const emits = defineEmits<{
     submit: [CreatePlayerDto]
 }>()
 
-const { getRawPlayerModel } = usePlayers()
-
+const { getRawPlayerModel, createFormValidationRules } = usePlayers()
 const formState = getRawPlayerModel()
 
 const countriesList = Object.entries(countries).map(([k, v]) => ({ label: v, value: k }))
