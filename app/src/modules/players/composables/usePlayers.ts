@@ -3,8 +3,18 @@ import { PlayersApi } from '../api'
 import { reactive } from 'vue'
 import type { CreatePlayerDto, RawPlayer } from '../types'
 import { message } from 'ant-design-vue'
+import type { Rule } from 'ant-design-vue/es/form'
 
 export function usePlayers() {
+    const createFormValidationRules: Record<string, Array<Rule>> = {
+        fullName: [
+            { required: true, message: 'Please input full name', trigger: 'change' },
+            { min: 5, message: 'Length should be at least 5', trigger: 'blur' },
+        ],
+        birthDate: [{ required: true, message: 'Please pick a date', trigger: 'change' }],
+        country: [{ required: true, message: 'Please pick a country', trigger: 'change' }],
+    }
+
     const {
         data: list,
         isLoading: listLoading,
@@ -63,5 +73,6 @@ export function usePlayers() {
         createPlayer,
         createError,
         playerCreating,
+        createFormValidationRules
     }
 }
