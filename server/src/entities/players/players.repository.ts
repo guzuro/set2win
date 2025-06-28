@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
-import { db } from '../db'
-import { playersTable } from '../db/schemas'
-import { PlayerCreateDto } from '../models/player.model'
+import { db } from '../../db'
+import { PlayerCreateDto } from './player.model'
+import { playersTable } from './playersTable'
 
 class PlayersRepository {
     async getUserPlayers(userId: string) {

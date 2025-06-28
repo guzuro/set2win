@@ -1,11 +1,11 @@
 import { Elysia, error } from 'elysia'
-import authRoutes from './routes/auth.route'
+import authRoutes from './common/auth/auth.route'
 import { cors } from '@elysiajs/cors'
-import userRoutes from './routes/user.route'
-import playersRoutes from './routes/players.route'
+import userRoutes from './entities/user/user.route'
 import { staticPlugin } from '@elysiajs/static'
-import staticRoutes from './routes/static.route'
 import { seedInitialData } from './db/seed'
+import {playersRoutes} from './entities/players'
+import staticRoutes from './common/static/static.route'
 
 const app = new Elysia()
     .onStart(() => {

@@ -1,5 +1,6 @@
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
-import { surfaceEnum, usersTable } from '.'
+import { usersTable } from '../../entities/user/userTable'
+import { surfaceEnum } from './enums'
 
 export const tournamentsTable = pgTable('tournaments', {
     id: uuid('id').primaryKey().defaultRandom(),

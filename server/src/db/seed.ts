@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { eq, count } from 'drizzle-orm'
 import { db } from '.'
-import { playersTable, usersTable } from './schemas'
 import { countries } from '../../includes/countries'
-import { CredentialsService } from '../services/credentials.service'
 import { HandValues, SurfaceValues } from './schemas/constants'
+import { playersTable } from '../entities/players'
+import { usersTable } from '../entities/user/userTable'
+import { hashValue } from '../../utils/credentials'
 
 const SYSTEM_USER_ID = process.env.SYSTEM_USER_ID!
 const SYSTEM_USER_LOGIN = process.env.SYSTEM_USER_LOGIN!
@@ -24,7 +25,7 @@ async function seedSystemUser() {
         .limit(1)
 
     if (!existingUser.length) {
-        const hashedPassword = await CredentialsService.hashValue(SYSTEM_USER_PASSWORD)
+        const hashedPassword = await hashValue(SYSTEM_USER_PASSWORD)
 
         await db.insert(usersTable).values({
             id: SYSTEM_USER_ID,

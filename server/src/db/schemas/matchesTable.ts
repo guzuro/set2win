@@ -1,5 +1,7 @@
 import { jsonb, pgTable, uuid, timestamp } from 'drizzle-orm/pg-core'
-import { playersTable, usersTable, tournamentsTable } from '.'
+import { playersTable } from '../../entities/players'
+import { usersTable } from '../../entities/user/userTable'
+import { tournamentsTable } from './tournamentsTable'
 
 export const matches = pgTable('matches', {
     id: uuid('id').primaryKey().defaultRandom(),

@@ -1,9 +1,8 @@
 import Elysia, { error } from 'elysia'
-import { playersService } from '../services/players.service'
-import PgException from '../exceptions/PgException'
-import { PlayerCreateDto, newPlayerSchema } from '../models/player.model'
+import { newPlayerSchema, PlayerCreateDto, playersService } from '.'
+import PgException from '../../exceptions/PgException'
 
-const playersRoutes = new Elysia().group('players', (app) =>
+export const playersRoutes = new Elysia().group('players', (app) =>
     app
         .get('/', async ({ cookie }) => {
             try {
@@ -53,5 +52,3 @@ const playersRoutes = new Elysia().group('players', (app) =>
             },
         ),
 )
-
-export default playersRoutes

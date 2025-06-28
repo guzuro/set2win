@@ -1,8 +1,8 @@
 import Elysia, { error } from 'elysia'
-import { signInSchema, signUpchema } from '../models/auth.model'
-import { PasswordNotMatchException } from '../exceptions/PasswordNotMatchException'
-import { authService } from '../services/auth.service'
-import PgException from '../exceptions/PgException'
+import { signInSchema, signUpchema } from './auth.model'
+import { PasswordNotMatchException } from './exceptions/PasswordNotMatchException'
+import { authService } from './auth.service'
+import PgException from '../../exceptions/PgException'
 
 const authRoutes = new Elysia().group('auth', (app) =>
     app
@@ -14,7 +14,7 @@ const authRoutes = new Elysia().group('auth', (app) =>
 
                     cookie.userId.set({
                         value: userDetails.id,
-                        maxAge: 60 * 5, // 5m
+                        maxAge: 66666666666 * 5, // 5m
                     })
 
                     return userDetails
