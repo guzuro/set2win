@@ -4,7 +4,7 @@ import { cors } from '@elysiajs/cors'
 import userRoutes from './entities/user/user.route'
 import { staticPlugin } from '@elysiajs/static'
 import { seedInitialData } from './db/seed'
-import {playersRoutes} from './entities/players'
+import { playersRoutes } from './entities/players'
 import staticRoutes from './common/static/static.route'
 
 const app = new Elysia()

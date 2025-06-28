@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { eq, count } from 'drizzle-orm'
 import { db } from '.'
-import { countries } from '../../includes/countries'
 import { HandValues, SurfaceValues } from './schemas/constants'
 import { playersTable } from '../entities/players'
 import { usersTable } from '../entities/user/userTable'
 import { hashValue } from '../../utils/credentials'
+import { countries } from '../common/includes/countries'
 
 const SYSTEM_USER_ID = process.env.SYSTEM_USER_ID!
 const SYSTEM_USER_LOGIN = process.env.SYSTEM_USER_LOGIN!

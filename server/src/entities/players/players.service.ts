@@ -1,7 +1,7 @@
-import { AVATAR_PUBLIC_URL } from "../../common/static/static.route"
-import PgException from "../../exceptions/PgException"
-import { PlayerCreateDto } from "./player.model"
-import { playersRepository } from "./players.repository"
+import { AVATAR_PUBLIC_URL } from '../../common/static/static.route'
+import PgException from '../../exceptions/PgException'
+import { PlayerCreateDto } from './player.model'
+import { playersRepository } from './players.repository'
 
 class PlayersService {
     async getUserPlayers(userId: string) {

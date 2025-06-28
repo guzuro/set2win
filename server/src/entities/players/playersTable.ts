@@ -2,7 +2,6 @@ import { pgTable, uuid, text, date, integer, timestamp, pgEnum } from 'drizzle-o
 import { sexEnum, handEnum, surfaceEnum } from '../../db/schemas'
 import { usersTable } from '../user/userTable'
 
-
 export const playersTable = pgTable('players', {
     id: uuid('id').primaryKey().defaultRandom(),
 

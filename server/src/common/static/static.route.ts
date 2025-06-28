@@ -32,7 +32,7 @@ const staticRoutes = new Elysia().group('upload', (app) =>
         } catch (e) {
             return error(500, e instanceof Error ? e.message : 'Internal server error')
         }
-    })
+    }),
 )
 
 export default staticRoutes

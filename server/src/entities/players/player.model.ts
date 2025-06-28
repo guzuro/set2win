@@ -2,10 +2,10 @@ import { t } from 'elysia'
 
 export const newPlayerSchema = t.Object({
     fullName: t.String({
-        minLength: 5
+        minLength: 5,
     }),
     country: t.String({
-        minLength: 2
+        minLength: 2,
     }),
     birthDate: t.String(),
     sex: t.Enum({

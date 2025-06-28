@@ -1,4 +1,4 @@
-import { userRepository } from "./user.repository"
+import { userRepository } from './user.repository'
 
 class UserService {
     async get(id: string) {
