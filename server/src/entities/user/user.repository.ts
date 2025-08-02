@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm'
-import { db } from '../db'
-import { usersTable } from '../db/schemas'
-import { CreateUserDto } from '../models/auth.model'
-import PgException from '../exceptions/PgException'
+import { db } from '../../db'
+import PgException from '../../exceptions/PgException'
+import { CreateUserDto } from '../../common/auth/auth.model'
+import { usersTable } from './userTable'
 
 class UserRepository {
     async createUser(body: CreateUserDto) {

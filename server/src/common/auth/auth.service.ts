@@ -1,12 +1,12 @@
-import HttpException from '../exceptions/HttpException'
-import { SignInDto, SignUpDto } from '../models/auth.model'
-import { userRepository } from '../repositiry/user.reposotiry'
-import { CredentialsService } from './credentials.service'
+import { userRepository } from '../../entities/user/user.repository'
+import HttpException from '../../exceptions/HttpException'
+import { SignInDto, SignUpDto } from './auth.model'
+import { verivyHash, hashValue } from '../../../utils/credentials'
 
 class AuthService {
     async signup({ login, password }: SignUpDto) {
         try {
-            const hashedPass = await CredentialsService.hashValue(password)
+            const hashedPass = await hashValue(password)
 
             return await userRepository.createUser({
                 login,
@@ -23,7 +23,7 @@ class AuthService {
         const [user] = await userRepository.getUserByLogin(payload.login)
 
         if (user) {
-            const passwordOk = await CredentialsService.verivyHash(payload.password, user.password)
+            const passwordOk = await verivyHash(payload.password, user.password)
 
             if (passwordOk) {
                 const { password, ...userFields } = user

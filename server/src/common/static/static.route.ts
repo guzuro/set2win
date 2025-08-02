@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 import Elysia, { error } from 'elysia'
 import { writeFile } from 'fs/promises'
 import path from 'path'
-import { isImage } from '../../utils/isImage'
+import { isImage } from '../../../utils/isImage'
 
 const AVATAR_DIR = path.join('public', 'static', 'avatars')
 export const AVATAR_PUBLIC_URL = 'static/avatars'
@@ -32,7 +32,7 @@ const staticRoutes = new Elysia().group('upload', (app) =>
         } catch (e) {
             return error(500, e instanceof Error ? e.message : 'Internal server error')
         }
-    })
+    }),
 )
 
 export default staticRoutes

@@ -1,6 +1,6 @@
 import Elysia, { error } from 'elysia'
-import PgException from '../exceptions/PgException'
-import { userService } from '../services/user.service'
+import PgException from '../../exceptions/PgException'
+import { userService } from './user.service'
 
 const userRoutes = new Elysia().group('user', (app) =>
     app.get('/', async ({ cookie }) => {
