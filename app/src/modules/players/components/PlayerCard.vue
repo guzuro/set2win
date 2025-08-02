@@ -29,7 +29,7 @@
             >
                 <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <ManOutlined
-                        v-if="player.sex === 'men'"
+                        v-if="player.sex === 'male'"
                         class="text-blue-400"
                     />
                     <WomanOutlined

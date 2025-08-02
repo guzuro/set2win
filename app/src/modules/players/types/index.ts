@@ -1,7 +1,7 @@
 import type { SurfaceType } from '@/shared/includes/surface/types'
 
 export type PlayerHand = 'left' | 'right'
-export type PlayerSex = 'men' | 'women'
+export type PlayerSex = 'male' | 'female'
 
 export type CreatePlayerDto = Pick<
     RawPlayer,

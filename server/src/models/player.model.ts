@@ -9,8 +9,8 @@ export const newPlayerSchema = t.Object({
     }),
     birthDate: t.String(),
     sex: t.Enum({
-        men: 'men',
-        women: 'women',
+        male: 'male',
+        female: 'female',
     }),
     hand: t.Enum({
         right: 'right',

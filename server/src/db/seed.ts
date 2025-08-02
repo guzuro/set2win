@@ -38,27 +38,24 @@ async function seedInitialPlayers() {
     const playersCount = await db.select({ count: count() }).from(playersTable)
 
     if (!playersCount[0].count) {
-        await generatePlayers(10, 'men')
-        await generatePlayers(10, 'women')
+        await generatePlayers(10, 'male')
+        await generatePlayers(10, 'female')
     }
 }
 
-async function generatePlayers(count: number, sex: 'men' | 'women') {
+async function generatePlayers(count: number, sex: 'male' | 'female') {
     const countryCodes = Object.keys(countries)
 
     for (let i = 0; i < count; i++) {
         await db.insert(playersTable).values({
             userId: SYSTEM_USER_ID,
             sex,
-            fullName:
-                sex === 'men'
-                    ? faker.person.fullName({ sex: 'male' })
-                    : faker.person.fullName({ sex: 'female' }),
+            fullName: faker.person.fullName({ sex }),
             country: faker.helpers.arrayElement(countryCodes),
             birthDate: faker.date.birthdate().toISOString(),
             rating: faker.number.int({
                 min: 1,
-                max: 500,
+                max: 100,
             }),
             hand: faker.helpers.arrayElement(HandValues),
             favoriteSurface: faker.helpers.arrayElement(SurfaceValues),

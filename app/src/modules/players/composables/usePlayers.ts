@@ -32,7 +32,7 @@ export function usePlayers() {
     const getRawPlayerModel = () => {
         return reactive<CreatePlayerDto>({
             fullName: '',
-            sex: 'men',
+            sex: 'male',
             country: '',
             birthDate: '',
             hand: 'right',
