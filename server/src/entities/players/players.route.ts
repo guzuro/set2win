@@ -50,5 +50,22 @@ export const playersRoutes = new Elysia().group('players', (app) =>
             {
                 body: newPlayerSchema,
             },
-        ),
+        )
+        .get('/rankings', async ({ cookie }) => {
+            try {
+                const userId = cookie?.userId?.value
+
+                if (userId) {
+                    return {
+                        players: await playersService.getPlayerRankings(),
+                    }
+                }
+            } catch (e) {
+                if (e instanceof PgException) {
+                    return error(e.status, e.message)
+                }
+
+                return error(500, 'Internal server error')
+            }
+        }),
 )

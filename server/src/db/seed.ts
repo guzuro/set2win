@@ -2,10 +2,9 @@ import { faker } from '@faker-js/faker'
 import { eq, count } from 'drizzle-orm'
 import { db } from '.'
 import { HandValues, SurfaceValues } from './schemas/constants'
-import { playersTable } from '../entities/players'
-import { usersTable } from '../entities/user/userTable'
 import { hashValue } from '../../utils/credentials'
 import { countries } from '../common/includes/countries'
+import { playersTable, usersTable } from './schemas'
 
 const SYSTEM_USER_ID = process.env.SYSTEM_USER_ID!
 const SYSTEM_USER_LOGIN = process.env.SYSTEM_USER_LOGIN!
@@ -60,7 +59,7 @@ async function generatePlayers(count: number, sex: 'male' | 'female') {
             }),
             hand: faker.helpers.arrayElement(HandValues),
             favoriteSurface: faker.helpers.arrayElement(SurfaceValues),
-            avatarUrl: null,
+            avatarUrl: `static/avatars/default-${sex}.jpg`,
         })
     }
 }

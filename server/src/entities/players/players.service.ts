@@ -25,6 +25,14 @@ class PlayersService {
             throw new PgException(error)
         }
     }
+
+    async getPlayerRankings() {
+        try {
+            return await playersRepository.getPlayers()
+        } catch (error) {
+            throw new PgException(error)
+        }
+    }
 }
 
 export const playersService = new PlayersService()
