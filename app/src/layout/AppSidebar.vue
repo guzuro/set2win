@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { TeamOutlined } from '@ant-design/icons-vue'
+import { StarOutlined, TeamOutlined } from '@ant-design/icons-vue'
 import type { ItemType, MenuProps } from 'ant-design-vue'
 import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -21,10 +21,17 @@ const { push } = useRouter()
 
 const items = ref<Array<ItemType>>([
     {
+        key: '/players/rankings',
+        label: 'Rankings',
+        icon: () => h(StarOutlined),
+    },
+     {
         key: '/players',
         label: 'Players',
         icon: () => h(TeamOutlined),
     },
+       
+
 ])
 
 const handleClick: MenuProps['onClick'] = (e) => {

@@ -19,7 +19,7 @@
 
         <ASpin
             v-if="listLoading"
-            class="players-list-spinner !w-10 !h-10"
+            class="players-list-spinner w-full"
         />
 
         <template v-else>

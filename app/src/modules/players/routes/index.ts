@@ -9,6 +9,11 @@ export const playersRoutes: Array<RouteRecordRaw> = [
                 name: 'PlayersList',
                 component: () => import('../pages/players-list.vue'),
             },
+            {
+                path: 'rankings',
+                name: 'Rankings',
+                component: () => import('../pages/rankings.vue'),
+            },
         ],
     },
 ]

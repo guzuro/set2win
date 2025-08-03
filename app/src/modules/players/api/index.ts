@@ -14,4 +14,7 @@ export const PlayersApi = {
             ...config,
         })
     },
+    getPlayersRankings: (config?: AxiosRequestConfig) => {
+        return api.get('/players/rankings', config)
+    },
 }

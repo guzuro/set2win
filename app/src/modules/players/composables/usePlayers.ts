@@ -4,6 +4,7 @@ import { reactive } from 'vue'
 import type { CreatePlayerDto, RawPlayer } from '../types'
 import { message } from 'ant-design-vue'
 import type { Rule } from 'ant-design-vue/es/form'
+import { getCreatePlayerModel } from '../includes/logic'
 
 export function usePlayers() {
     const createFormValidationRules: Record<string, Array<Rule>> = {
@@ -29,16 +30,15 @@ export function usePlayers() {
         resolve: resolveCreate,
     } = useApi<{ players: RawPlayer[] }>()
 
+    const {
+        data: rankingsData,
+        isLoading: rankingsLoading,
+        error: rankingsError,
+        resolve: resolveRankings,
+    } = useApi<{ players: RawPlayer[] }>()
+
     const getRawPlayerModel = () => {
-        return reactive<CreatePlayerDto>({
-            fullName: '',
-            sex: 'male',
-            country: '',
-            birthDate: '',
-            hand: 'right',
-            favoriteSurface: 'clay',
-            avatarUrl: null,
-        })
+        return reactive<CreatePlayerDto>(getCreatePlayerModel())
     }
 
     async function getUserPlayers() {
@@ -65,6 +65,16 @@ export function usePlayers() {
         }
     }
 
+    async function getRankings() {
+        await resolveRankings(() => PlayersApi.getPlayersRankings())
+
+        if (rankingsError.value) {
+            rankingsData.value = {
+                players: [],
+            }
+        }
+    }
+
     return {
         getUserPlayers,
         list,
@@ -73,6 +83,9 @@ export function usePlayers() {
         createPlayer,
         createError,
         playerCreating,
-        createFormValidationRules
+        createFormValidationRules,
+        getRankings,
+        rankingsData,
+        rankingsLoading
     }
 }
