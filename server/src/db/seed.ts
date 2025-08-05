@@ -47,16 +47,19 @@ async function generatePlayers(count: number, sex: 'male' | 'female') {
     const countryCodes = Object.keys(countries)
 
     for (let i = 0; i < count; i++) {
+        const rating = faker.number.int({
+                min: 1,
+                max: 100,
+            })
+
         await db.insert(playersTable).values({
             userId: SYSTEM_USER_ID,
             sex,
             fullName: faker.person.fullName({ sex }),
             country: faker.helpers.arrayElement(countryCodes),
             birthDate: faker.date.birthdate().toISOString(),
-            rating: faker.number.int({
-                min: 1,
-                max: 100,
-            }),
+            rating,
+            points: 1000 - rating * 10,
             hand: faker.helpers.arrayElement(HandValues),
             favoriteSurface: faker.helpers.arrayElement(SurfaceValues),
             avatarUrl: `static/avatars/default-${sex}.jpg`,

@@ -13,11 +13,12 @@ export const playersTable = pgTable('players', {
     sex: sexEnum('sex').notNull(),
     country: text('country').notNull(),
     birthDate: date('birth_date').notNull(),
+    
     rating: integer('rating').notNull().default(100),
+    points: integer('points').notNull().default(0),
 
     hand: handEnum('hand').notNull(),
     favoriteSurface: surfaceEnum('favorite_surface').notNull(),
-
     avatarUrl: text('avatar_url'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),

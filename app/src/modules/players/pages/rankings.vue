@@ -66,6 +66,11 @@ const columns: ColumnsType = [
         dataIndex: 'age',
         key: 'age',
     },
+    {
+        title: 'Points',
+        dataIndex: 'points',
+        key: 'points',
+    },
 ]
 
 onMounted(() => {
