@@ -32,7 +32,7 @@ const { toggleSidebar, needRenderSidebar } = useLayout()
     @apply fixed top-0 bg-white p-4 left-0 right-0 h-20 z-50 shadow-md;
 
     &-inner {
-        @apply px-3 md:px-[4rem] h-full gap-2 flex items-center;
+        @apply px-3 xl:px-[4rem] h-full gap-2 flex items-center;
     }
 
     &__title {

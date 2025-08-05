@@ -1,20 +1,25 @@
 import { computed, onMounted, onUnmounted, reactive } from 'vue'
 import { useUserStore } from '@/modules/user/store/userStore'
+import { theme } from 'ant-design-vue'
 
-const MD_BREAKPOINT = 768
+let XL_BREAKPOINT = -1
 
 const layoutState = reactive({
-    sidebarVisible: window.innerWidth > MD_BREAKPOINT,
-    mobileSidebar: window.innerWidth < MD_BREAKPOINT,
+    sidebarVisible: window.innerWidth > XL_BREAKPOINT,
+    mobileSidebar: window.innerWidth < XL_BREAKPOINT,
 })
 
 export function useLayout() {
+    const { token } = theme.useToken()
+
+    XL_BREAKPOINT = token.value.screenXL
+
     const userStore = useUserStore()
 
     function toggleSidebar() {
         layoutState.sidebarVisible = !layoutState.sidebarVisible
 
-        layoutState.mobileSidebar = window.innerWidth < MD_BREAKPOINT
+        layoutState.mobileSidebar = window.innerWidth < XL_BREAKPOINT
     }
 
     const needRenderSidebar = computed(() => userStore.isAuthenticated)
@@ -22,7 +27,7 @@ export function useLayout() {
     const isSidebarActive = computed(() => layoutState.sidebarVisible && needRenderSidebar.value)
 
     const handleResize = () => {
-        const isMobile = window.innerWidth < MD_BREAKPOINT
+        const isMobile = window.innerWidth < XL_BREAKPOINT
 
         if (isMobile && layoutState.sidebarVisible && !layoutState.mobileSidebar) {
             layoutState.sidebarVisible = false
@@ -37,6 +42,7 @@ export function useLayout() {
 
     onMounted(() => {
         window.addEventListener('resize', handleResize)
+        
         handleResize()
     })
 

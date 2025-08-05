@@ -45,12 +45,7 @@ const { isSidebarActive, layoutState, toggleSidebar, needRenderSidebar } = useLa
     }
 
     &-container {
-        @apply w-full flex flex-col min-h-screen;
-        padding: 7rem 2rem;
-
-        @media screen and (min-width: 768px) {
-            margin-left: 28rem;
-        }
+        @apply w-full flex flex-col min-h-screen xl:ml-[28rem] py-28 px-8;
     }
 
     &-main {
@@ -58,17 +53,11 @@ const { isSidebarActive, layoutState, toggleSidebar, needRenderSidebar } = useLa
     }
 
     &-sidebar {
-        @apply fixed z-[999] overflow-y-auto select-none -translate-x-full;
+        @apply fixed z-[999] overflow-y-auto select-none -translate-x-full left-0 top-[6rem] xl:left-20 xl:translate-x-0;
 
-        top: 6rem;
-        left: 0;
         transition:
             transform 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99),
             left 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
-
-        @media screen and (min-width: 768px) {
-            @apply left-20 translate-x-0;
-        }
     }
 
     .mobile-active &-sidebar {
