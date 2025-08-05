@@ -15,7 +15,7 @@ class PlayersService {
     async addPlayer(player: PlayerCreateDto) {
         try {
             if (!player.avatarUrl) {
-                const imgType = player.sex === 'male' ? 'default-men.jpg' : 'default-women.jpg'
+                const imgType = player.sex === 'male' ? 'default-male.jpg' : 'default-female.jpg'
 
                 player.avatarUrl = `${AVATAR_PUBLIC_URL}/${imgType}`
             }
