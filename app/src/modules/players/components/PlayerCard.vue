@@ -17,7 +17,7 @@
                 class="w-full @sm:w-2/5 h-64 @xl:h-80"
             >
                 <img
-                    :src="`http://localhost:3000/${player.avatarUrl}`"
+                    :src="getPlayerAvatarUrl(player.avatarUrl)"
                     alt="Player"
                     class="w-full h-full object-cover"
                 />
@@ -39,14 +39,7 @@
                     {{ player.fullName }}
                 </h3>
 
-                <div class="flex items-center gap-2 text-gray-600">
-                    <img
-                        :src="getCountryImage(player.country)"
-                        alt="flag"
-                        class="w-6 h-4 rounded-xs"
-                    />
-                    <span class="font-medium">{{ countries[player.country] }}</span>
-                </div>
+                <CountryFlag :country="player.country" />
             </div>
         </div>
     </ACard>
@@ -58,6 +51,8 @@ import { ManOutlined, WomanOutlined } from '@ant-design/icons-vue'
 import type { RawPlayer } from '../types'
 import { countries } from '../../../shared/includes/countries/countries'
 import { getCountryImage } from '../../../shared/includes/countries/logic'
+import { getPlayerAvatarUrl } from '../includes/logic'
+import CountryFlag from '@/shared/components/controls/components/CountryFlag.vue'
 
 const { token } = theme.useToken()
 
