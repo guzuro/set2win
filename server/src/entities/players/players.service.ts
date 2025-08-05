@@ -2,11 +2,14 @@ import { AVATAR_PUBLIC_URL } from '../../common/static/static.route'
 import PgException from '../../exceptions/PgException'
 import { PlayerCreateDto } from './player.model'
 import { playersRepository } from './players.repository'
+import { playerWithAge } from './utils'
 
 class PlayersService {
     async getUserPlayers(userId: string) {
         try {
-            return await playersRepository.getUserPlayers(userId)
+            const players = await await playersRepository.getUserPlayers(userId)
+
+            return players.map(playerWithAge)
         } catch (error) {
             throw new PgException(error)
         }
@@ -28,7 +31,9 @@ class PlayersService {
 
     async getPlayerRankings() {
         try {
-            return await playersRepository.getPlayers()
+            const players = await playersRepository.getPlayers()
+
+            return players.map(playerWithAge)
         } catch (error) {
             throw new PgException(error)
         }
