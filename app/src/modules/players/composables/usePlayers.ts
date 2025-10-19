@@ -30,13 +30,6 @@ export function usePlayers() {
         resolve: resolveCreate,
     } = useApi<{ players: RawPlayer[] }>()
 
-    const {
-        data: rankingsData,
-        isLoading: rankingsLoading,
-        error: rankingsError,
-        resolve: resolveRankings,
-    } = useApi<{ players: RawPlayer[] }>()
-
     const getRawPlayerModel = () => {
         return reactive<CreatePlayerDto>(getCreatePlayerModel())
     }
@@ -64,17 +57,6 @@ export function usePlayers() {
             list.value.players = createData.value.players
         }
     }
-
-    async function getRankings() {
-        await resolveRankings(() => PlayersApi.getPlayersRankings())
-
-        if (rankingsError.value) {
-            rankingsData.value = {
-                players: [],
-            }
-        }
-    }
-
     return {
         getUserPlayers,
         list,
@@ -84,8 +66,5 @@ export function usePlayers() {
         createError,
         playerCreating,
         createFormValidationRules,
-        getRankings,
-        rankingsData,
-        rankingsLoading
     }
 }

@@ -6,12 +6,12 @@
         />
 
         <ASpin
-            v-if="rankingsLoading"
+            v-if="isLoading"
             class="w-full"
         />
         <ATable
             v-else
-            :dataSource="rankingsData?.players ?? []"
+            :dataSource="data?.players ?? []"
             :columns="columns"
         >
             <template #bodyCell="{ column, record }">
@@ -43,13 +43,13 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { usePlayers } from '../composables/usePlayers'
 import type { ColumnsType } from 'ant-design-vue/es/table'
 import { Avatar } from 'ant-design-vue'
 import CountryFlag from '@/shared/components/controls/components/CountryFlag.vue'
 import { getPlayerAvatarUrl } from '../includes/logic'
+import { useRanks } from '../composables/useRanks'
 
-const { getRankings, rankingsData, rankingsLoading } = usePlayers()
+const { getRankings, data, isLoading } = useRanks()
 
 const columns: ColumnsType = [
     {
