@@ -2,6 +2,8 @@ import { api } from '@/shared/api/axios'
 import type { AxiosRequestConfig } from 'axios'
 import type { CreatePlayerDto } from '../types'
 
+type PaginationData = { limit: number; page: number }
+
 export const PlayersApi = {
     getUserPlayers: (config?: AxiosRequestConfig) => {
         return api.get('/players', config)
@@ -14,7 +16,7 @@ export const PlayersApi = {
             ...config,
         })
     },
-    getPlayersRankings: (config?: AxiosRequestConfig) => {
-        return api.get('/players/rankings', config)
+    getPlayersRankings: (body: PaginationData, config?: AxiosRequestConfig) => {
+        return api.post('/players/getrankings', body, config)
     },
 }

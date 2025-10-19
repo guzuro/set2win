@@ -16,8 +16,17 @@ class PlayersRepository {
         return await db.delete(playersTable).where(eq(playersTable.userId, id))
     }
 
-    async getPlayers() {
-        return await db.select().from(playersTable).orderBy(asc(playersTable.rating))
+    async getAllPlayers() {
+        return await db.select().from(playersTable)
+    }
+
+    async getPlayersPagination(limit: number, offset: number) {
+        return await db
+            .select()
+            .from(playersTable)
+            .limit(limit)
+            .offset(offset)
+            .orderBy(asc(playersTable.rating))
     }
 }
 

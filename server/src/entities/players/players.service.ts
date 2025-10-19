@@ -7,7 +7,7 @@ import { playerWithAge } from './utils'
 class PlayersService {
     async getUserPlayers(userId: string) {
         try {
-            const players = await await playersRepository.getUserPlayers(userId)
+            const players = await playersRepository.getUserPlayers(userId)
 
             return players.map(playerWithAge)
         } catch (error) {
@@ -29,11 +29,17 @@ class PlayersService {
         }
     }
 
-    async getPlayerRankings() {
+    async getPlayerRankings(limit: number, page: number) {
         try {
-            const players = await playersRepository.getPlayers()
+            const _limit = limit > 50 ? 50 : 10
+            const _offset = (page - 1) * limit
 
-            return players.map(playerWithAge)
+            const [players, total] = await Promise.all([
+                playersRepository.getPlayersPagination(_limit, _offset),
+                playersRepository.getAllPlayers(),
+            ])
+
+            return { players: players.map(playerWithAge), total: total.length }
         } catch (error) {
             throw new PgException(error)
         }

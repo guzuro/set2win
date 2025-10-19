@@ -10,15 +10,22 @@
             class="w-full"
         />
         <ATable
-            v-else
-            :dataSource="data?.players ?? []"
+            v-if="data"
+            :dataSource="data.players"
             :columns="columns"
+            :pagination="{
+                current: currentPage,
+                total: data.total,
+                'onUpdate:current'(page) {
+                    onPageChange(page)
+                },
+            }"
         >
             <template #bodyCell="{ column, record }">
                 <template v-if="column.key === 'player'">
                     <div class="flex items-center gap-2">
                         <div class="relative">
-                            <Avatar
+                            <AAvatar
                                 shape="circle"
                                 size="large"
                                 :src="getPlayerAvatarUrl(record.avatarUrl)"
@@ -42,20 +49,28 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { ColumnsType } from 'ant-design-vue/es/table'
-import { Avatar } from 'ant-design-vue'
 import CountryFlag from '@/shared/components/controls/components/CountryFlag.vue'
 import { getPlayerAvatarUrl } from '../includes/logic'
 import { useRanks } from '../composables/useRanks'
 
 const { getRankings, data, isLoading } = useRanks()
 
+const currentPage = ref(1)
+
+const onPageChange = (page: number) => {
+    currentPage.value = page
+
+    getRankings(page)
+}
+
 const columns: ColumnsType = [
     {
         title: 'Rank',
         dataIndex: 'rating',
         key: 'rank',
+        width: 30,
     },
     {
         title: 'Player',
@@ -74,7 +89,7 @@ const columns: ColumnsType = [
 ]
 
 onMounted(() => {
-    getRankings()
+    getRankings(1)
 })
 </script>
 

@@ -1,27 +1,24 @@
 import { useApi } from '@/shared/composables/useApi'
 import { PlayersApi } from '../api'
-import { reactive } from 'vue'
-import type { CreatePlayerDto, RawPlayer } from '../types'
-import { getCreatePlayerModel } from '../includes/logic'
+import type { RawPlayer } from '../types'
 
 export function useRanks() {
-    const { data, isLoading, error, resolve } = useApi<{ players: RawPlayer[] }>()
+    const { data, isLoading, error, resolve } = useApi<{ players: RawPlayer[]; total: number }>()
 
-    const getRawPlayerModel = () => {
-        return reactive<CreatePlayerDto>(getCreatePlayerModel())
-    }
-    async function getRankings() {
-        await resolve(() => PlayersApi.getPlayersRankings())
+    const PAGINATION_LIMIT = 10
+
+    async function getRankings(page: number) {
+        await resolve(() => PlayersApi.getPlayersRankings({ limit: PAGINATION_LIMIT, page }))
 
         if (error.value) {
             data.value = {
                 players: [],
+                total: 0,
             }
         }
     }
 
     return {
-        getRawPlayerModel,
         getRankings,
         data,
         isLoading,

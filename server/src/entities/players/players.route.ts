@@ -51,14 +51,13 @@ export const playersRoutes = new Elysia().group('players', (app) =>
                 body: newPlayerSchema,
             },
         )
-        .get('/rankings', async ({ cookie }) => {
+        .post('/getrankings', async ({ body, cookie }) => {
             try {
                 const userId = cookie?.userId?.value
+                const { limit, page } = body
 
                 if (userId) {
-                    return {
-                        players: await playersService.getPlayerRankings(),
-                    }
+                    return await playersService.getPlayerRankings(limit, page)
                 }
             } catch (e) {
                 if (e instanceof PgException) {
