@@ -14,7 +14,7 @@
             :dataSource="data.players"
             :columns="columns"
             :pagination="{
-                current: currentPage,
+                current: page,
                 total: data.total,
                 'onUpdate:current'(page) {
                     onPageChange(page)
@@ -49,21 +49,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import type { ColumnsType } from 'ant-design-vue/es/table'
 import CountryFlag from '@/shared/components/controls/components/CountryFlag.vue'
 import { getPlayerAvatarUrl } from '../includes/logic'
 import { useRanks } from '../composables/useRanks'
-
-const { getRankings, data, isLoading } = useRanks()
-
-const currentPage = ref(1)
-
-const onPageChange = (page: number) => {
-    currentPage.value = page
-
-    getRankings(page)
-}
+import { useRoute, useRouter } from 'vue-router'
 
 const columns: ColumnsType = [
     {
@@ -88,8 +79,41 @@ const columns: ColumnsType = [
     },
 ]
 
+const { getRankings, data, isLoading } = useRanks()
+
+const route = useRoute()
+const router = useRouter()
+
+const page = computed<number>({
+    get: () => {
+        const page = route.query['page']
+
+        if (!page) {
+            return 1
+        } else if (typeof page === 'string') {
+            return +page
+        }
+
+        return +page
+    },
+    set: (page) => {
+        router.replace({
+            query: {
+                ...route.params,
+                page,
+            },
+        })
+    },
+})
+
+const onPageChange = (_page: number) => {
+    page.value = _page
+
+    getRankings(_page)
+}
+
 onMounted(() => {
-    getRankings(1)
+    getRankings(+page.value)
 })
 </script>
 
