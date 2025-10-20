@@ -29,6 +29,7 @@
             >
                 <ACol
                     v-for="player in list.players"
+                    :key="player.id"
                     :xs="24"
                     :md="12"
                     :xxl="8"
@@ -66,13 +67,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import { usePlayers } from '../composables/usePlayers'
 import CreatePlayerForm from '../components/CreatePlayerForm.vue'
 import { useDrawer } from '../../../shared/composables/useDrawer'
 import ARow from 'ant-design-vue/es/grid/Row'
 import PlayerCard from '../components/PlayerCard.vue'
-import { templateRef } from '@vueuse/core'
 import type { CreatePlayerDto } from '../types'
 
 const drawerOpen = ref(false)
@@ -81,11 +81,11 @@ const { listLoading, getUserPlayers, list, createPlayer, createError, playerCrea
     usePlayers()
 const { drawerWidth } = useDrawer()
 
-const formRef = templateRef('formRef')
+const formRef = useTemplateRef('formRef')
 
 const submitForm = async (player: CreatePlayerDto) => {
     await createPlayer(player)
-    
+
     if (!createError.value) {
         formRef.value?.resetForm()
 
